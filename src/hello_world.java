@@ -6,7 +6,7 @@ public class hello_world extends PApplet {
         PApplet.main("hello_world");
     }
 
-    Ellipse e;
+//    Ellipse e;
 
     public void settings(){
         size(200, 200);
