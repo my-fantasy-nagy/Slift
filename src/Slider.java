@@ -3,21 +3,17 @@ import processing.core.PApplet;
 public class Slider {
 
     double rate;
-    double max;
-    double min;
     double pos;
-    int intPos;
     boolean forward;
     boolean pause;
+    PApplet pa;
 
-    public Slider(double rate, double max, double min) {
+    public Slider(PApplet pa, double rate) {
         this.rate = rate;
-        this.max = max;
-        this.min = min;
+        this.pa = pa;
         forward = true;
         pause = false;
-        pos = min;
-        intPos = (int)pos;
+        pos = 0;
     }
 
     public void update(){
@@ -31,12 +27,12 @@ public class Slider {
             }
         }
 
-        if(pos >= max){
-            pos = max;
+        //hold position on min/max values
+        if(pos >= 1.0){
+            pos = 1.0;
         }
-
-        if(pos <= min){
-            pos = min;
+        if(pos <= 0.0){
+            pos = 0.0;
         }
     }
 
