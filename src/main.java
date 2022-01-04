@@ -1,5 +1,6 @@
 import static Constants.ConstantsFile.*;
 import processing.core.PApplet;
+import processing.core.PVector;
 
 
 public class main extends PApplet {
@@ -10,6 +11,7 @@ public class main extends PApplet {
     }
 
     Slider slider;
+    Cell cell;
 
     public void settings() {
         size(WIDE, WIDE);
@@ -17,16 +19,20 @@ public class main extends PApplet {
 
     public void setup(){
         frameRate(FRAME_RATE);
-        slider = new Slider(this, CELL_RATE);
+
+//        slider = new Slider(CELL_RATE);
+        cell = new Cell(this, new PVector(0,0), CELL_SIZE, 255, 0);
     }
 
     public void draw(){
-        slider.update();
-        println(slider.getPosition());
         background(0);
+        cell.update();
+
+//        slider.update();
+//        println(slider.getPosition());
 
         if(mousePressed){
-            slider.reverseDirection();
+            cell.transition();
         }
     }
 

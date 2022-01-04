@@ -1,16 +1,13 @@
-import processing.core.PApplet;
-
 public class Slider {
 
-    double rate;
-    double pos;
+    float rate;
+    float pos;
     boolean forward;
     boolean pause;
-    PApplet pa;
+//    PApplet pa;
 
-    public Slider(PApplet pa, double rate) {
+    public Slider(float rate) {
         this.rate = rate;
-        this.pa = pa;
         forward = true;
         pause = false;
         pos = 0;
@@ -29,17 +26,17 @@ public class Slider {
 
         //hold position on min/max values
         if(pos >= 1.0){
-            pos = 1.0;
+            pos = 1.0F;
         }
         if(pos <= 0.0){
-            pos = 0.0;
+            pos = 0.0F;
         }
     }
 
     public void reverseDirection(){
         forward = !forward;
     }
-    public double getPosition(){
+    public float getPosition(){
         return pos;
     }
 }
