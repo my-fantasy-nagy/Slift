@@ -14,12 +14,14 @@ public class CellColumn {
     int prevIndex;
     float cellSize;
     boolean trans;
+    boolean dir;
 
     public CellColumn(PApplet pa, float cellSize, int numCells, PVector pos) {
         this.pa = pa;
         this.cellSize = cellSize;
         this.numCells = numCells;
         trans = false;
+        dir = false;
         prevIndex = 0;
 
         //create intList to determine display order
@@ -46,30 +48,35 @@ public class CellColumn {
     public void update(){
         int currentIndex = (int) PApplet.map(slider.getPosition(), 0.0F, 1.0F, 0.0F, numCells-1.0F);
 
+        //look for slider index transitions and trigger cells
         if(prevIndex != currentIndex) {
             Cell currentCell = cells.get(triggerOrder.get(currentIndex));
             currentCell.transition();
+            currentCell.setDirection(dir);
         }
 
+        //transition case
         if(trans) {
             //edge case for first and last cells
             if(currentIndex == numCells - 1 || currentIndex == 0){
                 if(slider.getPosition() == 0.0F || slider.getPosition() == 1.0F){
-                    System.out.println("HERE");
                     cells.get(triggerOrder.get(currentIndex)).transition();
                 }
             }
             slider.update();
         }
 
+        //turn off transition flag if slider is at the edge
         if(slider.getPosition() == 1.0 || slider.getPosition() == 0.0) {
             trans = false;
         }
 
+        //update the cells
         for(Cell cell: cells){
             cell.update();
         }
 
+        //set previous index
         prevIndex = currentIndex;
     }
 
@@ -94,6 +101,7 @@ public class CellColumn {
     public void transition(){
         slider.reverseDirection();
         trans = true;
+        dir = !dir;
     }
 
     public void allCellsToOn(){

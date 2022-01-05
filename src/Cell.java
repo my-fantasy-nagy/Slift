@@ -14,7 +14,6 @@ public class Cell {
     int finalFill = 0;
     boolean trans;
 
-
     public Cell(PApplet pa, PVector pos, float size, int colorA, int colorB) {
         this.pa = pa;
         this.pos = pos;
@@ -48,7 +47,9 @@ public class Cell {
         return slider.getPosition();
     }
 
-
+    void setDirection(boolean dir){
+        slider.setDirection(dir);
+    }
 
 
 }

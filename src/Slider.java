@@ -30,6 +30,10 @@ public class Slider {
         }
     }
 
+    public void setDirection(boolean dir){
+        forward = dir;
+    }
+
     public void reverseDirection(){
         forward = !forward;
     }
