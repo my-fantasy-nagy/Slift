@@ -12,6 +12,7 @@ public class main extends PApplet {
 
     Slider slider;
     Cell cell;
+    CellColumn column;
 
     public void settings() {
         size(WIDE, WIDE);
@@ -20,23 +21,31 @@ public class main extends PApplet {
     public void setup(){
         frameRate(FRAME_RATE);
 
+        column = new CellColumn(this,CELL_SIZE,40,new PVector(0,0));
+
+//        cell = new Cell(this, new PVector(0,0), CELL_SIZE, 255, 0);
+
 //        slider = new Slider(CELL_RATE);
-        cell = new Cell(this, new PVector(0,0), CELL_SIZE, 255, 0);
+
     }
 
     public void draw(){
+
         background(0);
-        cell.update();
+//        column.fadeInOut();
+        column.update();
+
+//        cell.update();
 
 //        slider.update();
-//        println(slider.getPosition());
 
 
     }
 
-
     public void mousePressed() {
-        cell.transition();
+        column.transition();
+
+//        cell.transition();
     }
 
 }

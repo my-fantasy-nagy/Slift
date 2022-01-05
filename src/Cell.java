@@ -44,6 +44,12 @@ public class Cell {
         trans = true;
     }
 
+    public float getPos(){
+        return slider.getPosition();
+    }
+
+
+
 
 }
 
