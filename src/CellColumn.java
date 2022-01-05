@@ -7,10 +7,11 @@ import static Constants.ConstantsFile.COLUMN_RATE;
 public class CellColumn {
 
     PApplet pa;
-    ArrayList<Cell> cells = new ArrayList<Cell>();
+    ArrayList<Cell> cells = new ArrayList<>();
     IntList triggerOrder;
     Slider slider;
     int numCells;
+    int prevIndex;
     float cellSize;
     boolean trans;
 
@@ -19,6 +20,7 @@ public class CellColumn {
         this.cellSize = cellSize;
         this.numCells = numCells;
         trans = false;
+        prevIndex = -1;
 
         //create intList to determine display order
         triggerOrder = new IntList();
@@ -42,21 +44,29 @@ public class CellColumn {
     }
 
     public void update(){
+        int currentIndex = (int) PApplet.map(slider.getPosition(), 0.0F, 1.0F, 0.0F, numCells-1.0F);
+
+        if(prevIndex != currentIndex) {
+            Cell currentCell = cells.get(triggerOrder.get(currentIndex));
+            currentCell.transition();
+        }
+
         for(Cell cell: cells){
             cell.update();
         }
 
-        if(trans){
+        if(trans) {
             slider.update();
         }
 
         if(slider.getPosition() == 1.0 || slider.getPosition() == 0.0) {
             trans = false;
         }
+
+        prevIndex = currentIndex;
     }
 
     public void fadeInOut(){
-        boolean up = true;
 
         for(Cell cell : cells){
             float pos = cell.getPos();
@@ -71,6 +81,7 @@ public class CellColumn {
 
     public void shuffleTriggerOrder(){
         triggerOrder.shuffle();
+        prevIndex = triggerOrder.get(0);
     }
 
     public void transition(){

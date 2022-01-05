@@ -21,7 +21,7 @@ public class main extends PApplet {
     public void setup(){
         frameRate(FRAME_RATE);
 
-        column = new CellColumn(this,CELL_SIZE,40,new PVector(0,0));
+        column = new CellColumn(this,CELL_SIZE,16,new PVector(0,0));
 
 //        cell = new Cell(this, new PVector(0,0), CELL_SIZE, 255, 0);
 

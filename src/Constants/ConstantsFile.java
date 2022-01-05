@@ -10,7 +10,7 @@ public final class ConstantsFile {
     public static final int WIDE = 800;
     public static final float CELL_RATE = 0.0166F;
     public static final float CELL_SIZE = 50.0F;
-    public static final float COLUMN_RATE = 0.025F;
+    public static final float COLUMN_RATE = 0.01F;
 }
 
 
