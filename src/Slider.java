@@ -3,25 +3,22 @@ public class Slider {
     float rate;
     float pos;
     boolean forward;
-    boolean pause;
 //    PApplet pa;
 
     public Slider(float rate) {
         this.rate = rate;
-        forward = true;
-        pause = false;
+        forward = false;
         pos = 0;
     }
 
     public void update(){
 
         //check direction and move position accordingly
-        if(!pause) {
-            if (forward) {
-                pos += rate;
-            } else {
-                pos -= rate;
-            }
+
+        if (forward) {
+            pos += rate;
+        } else {
+            pos -= rate;
         }
 
         //hold position on min/max values
@@ -39,4 +36,6 @@ public class Slider {
     public float getPosition(){
         return pos;
     }
+
+
 }

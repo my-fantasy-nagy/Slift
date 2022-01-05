@@ -12,7 +12,7 @@ public class Cell {
     int colorA;
     int colorB;
     int finalFill = 0;
-
+    boolean trans;
 
 
     public Cell(PApplet pa, PVector pos, float size, int colorA, int colorB) {
@@ -21,7 +21,7 @@ public class Cell {
         this.size = size;
         this.colorA = colorA;
         this.colorB = colorB;
-
+        trans = false;
         slider = new Slider(CELL_RATE);
     }
 
@@ -29,11 +29,19 @@ public class Cell {
         finalFill = pa.lerpColor(colorA, colorB, slider.getPosition());
         pa.fill(finalFill);
         pa.rect(pos.x, pos.y, size, size);
+
+        if(trans){
+            slider.update();
+        }
+
+        if(slider.getPosition() == 1.0 || slider.getPosition() == 0.0) {
+            trans = false;
+        }
     }
 
-
     public void transition(){
-        // TODO Make this transition trigger a boolean variable that runs the slider
+        slider.reverseDirection();
+        trans = true;
     }
 
 

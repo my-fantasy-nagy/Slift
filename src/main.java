@@ -31,9 +31,12 @@ public class main extends PApplet {
 //        slider.update();
 //        println(slider.getPosition());
 
-        if(mousePressed){
-            cell.transition();
-        }
+
+    }
+
+
+    public void mousePressed() {
+        cell.transition();
     }
 
 }
