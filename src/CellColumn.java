@@ -20,7 +20,7 @@ public class CellColumn {
         this.cellSize = cellSize;
         this.numCells = numCells;
         trans = false;
-        prevIndex = -1;
+        prevIndex = 0;
 
         //create intList to determine display order
         triggerOrder = new IntList();
@@ -51,16 +51,23 @@ public class CellColumn {
             currentCell.transition();
         }
 
-        for(Cell cell: cells){
-            cell.update();
-        }
-
         if(trans) {
+            //edge case for first and last cells
+            if(currentIndex == numCells - 1 || currentIndex == 0){
+                if(slider.getPosition() == 0.0F || slider.getPosition() == 1.0F){
+                    System.out.println("HERE");
+                    cells.get(triggerOrder.get(currentIndex)).transition();
+                }
+            }
             slider.update();
         }
 
         if(slider.getPosition() == 1.0 || slider.getPosition() == 0.0) {
             trans = false;
+        }
+
+        for(Cell cell: cells){
+            cell.update();
         }
 
         prevIndex = currentIndex;
@@ -87,6 +94,14 @@ public class CellColumn {
     public void transition(){
         slider.reverseDirection();
         trans = true;
+    }
+
+    public void allCellsToOn(){
+        //TODO: turn all of the cells on
+    }
+
+    public void allCellsOff(){
+        //TODO: turn all of the cells off
     }
 
 }
