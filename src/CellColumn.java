@@ -12,13 +12,11 @@ public class CellColumn {
     Slider slider;
     int numCells;
     int prevIndex;
-    float cellSize;
     boolean trans;
     boolean dir;
 
     public CellColumn(PApplet pa, float cellSize, int numCells, PVector pos) {
         this.pa = pa;
-        this.cellSize = cellSize;
         this.numCells = numCells;
         trans = false;
         dir = false;
@@ -93,6 +91,14 @@ public class CellColumn {
         }
     }
 
+    public void alignTriggerOrder(){
+        IntList newList = new IntList();
+        for(int i = 0; i < numCells; i++){
+            triggerOrder.append(i);
+        }
+        triggerOrder = newList;
+    }
+
     public void shuffleTriggerOrder(){
         triggerOrder.shuffle();
         prevIndex = triggerOrder.get(0);
@@ -103,6 +109,7 @@ public class CellColumn {
         trans = true;
         dir = !dir;
     }
+
 
     public void allCellsToOn(){
         //TODO: Fix bug in ON/OFF Sequences

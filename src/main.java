@@ -13,6 +13,7 @@ public class main extends PApplet {
     Slider slider;
     Cell cell;
     CellColumn column;
+    Grid grid;
 
     public void settings() {
         size(WIDE, WIDE);
@@ -20,8 +21,10 @@ public class main extends PApplet {
 
     public void setup(){
         frameRate(FRAME_RATE);
+        int numCells = (int)(WIDE/CELL_SIZE);
+        grid = new Grid(this, CELL_SIZE, numCells, numCells,new PVector(0,0));
 
-        column = new CellColumn(this,CELL_SIZE, (int)(WIDE/CELL_SIZE),new PVector(0,0));
+//        column = new CellColumn(this,CELL_SIZE, (int)(WIDE/CELL_SIZE),new PVector(0,0));
 //        column.shuffleTriggerOrder();
 //        cell = new Cell(this, new PVector(0,0), CELL_SIZE, 255, 0);
 
@@ -32,9 +35,12 @@ public class main extends PApplet {
     public void draw(){
 
         background(0);
-//        column.fadeInOut();
+
+        grid.update();
+
         checkInput();
-        column.update();
+//        column.fadeInOut();
+//        column.update();
 
 //        cell.update();
 
@@ -44,7 +50,9 @@ public class main extends PApplet {
     }
 
     public void mousePressed() {
-        column.transition();
+
+        grid.transition();
+//        column.transition();
 
 //        cell.setDirection(true);
     }
@@ -52,10 +60,10 @@ public class main extends PApplet {
     public void checkInput(){
         if (keyPressed) {
             if (key == 'a' || key == 'A') {
-                column.allCellsToOn();
+//                column.allCellsToOn();
             }
             if (key == 's' || key == 'S') {
-                column.allCellsToOff();
+//                column.allCellsToOff();
             }
         }
     }
