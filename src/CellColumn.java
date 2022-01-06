@@ -105,11 +105,20 @@ public class CellColumn {
     }
 
     public void allCellsToOn(){
-        //TODO: turn all of the cells on
+        //TODO: Fix bug in ON/OFF Sequences
+        trans = false;
+        for(Cell cell : cells){
+            cell.setDirection(true);
+        }
+        slider.setPos(1.0F);
     }
 
-    public void allCellsOff(){
-        //TODO: turn all of the cells off
+    public void allCellsToOff(){
+        trans = false;
+        for(Cell cell : cells){
+            cell.setDirection(false);
+        }
+        slider.setPos(0.0F);
     }
 
 }

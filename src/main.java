@@ -21,8 +21,8 @@ public class main extends PApplet {
     public void setup(){
         frameRate(FRAME_RATE);
 
-        column = new CellColumn(this,CELL_SIZE,16,new PVector(0,0));
-
+        column = new CellColumn(this,CELL_SIZE, (int)(WIDE/CELL_SIZE),new PVector(0,0));
+//        column.shuffleTriggerOrder();
 //        cell = new Cell(this, new PVector(0,0), CELL_SIZE, 255, 0);
 
 //        slider = new Slider(CELL_RATE);
@@ -33,6 +33,7 @@ public class main extends PApplet {
 
         background(0);
 //        column.fadeInOut();
+        checkInput();
         column.update();
 
 //        cell.update();
@@ -45,7 +46,18 @@ public class main extends PApplet {
     public void mousePressed() {
         column.transition();
 
-//        cell.transition();
+//        cell.setDirection(true);
+    }
+
+    public void checkInput(){
+        if (keyPressed) {
+            if (key == 'a' || key == 'A') {
+                column.allCellsToOn();
+            }
+            if (key == 's' || key == 'S') {
+                column.allCellsToOff();
+            }
+        }
     }
 
 }

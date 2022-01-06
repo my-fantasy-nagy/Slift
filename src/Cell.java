@@ -48,7 +48,20 @@ public class Cell {
     }
 
     void setDirection(boolean dir){
+        trans = true;
         slider.setDirection(dir);
+    }
+
+    public boolean isOn(){
+        boolean on = true;
+        if(slider.getPosition() == 1.0 || slider.getPosition() == 0.0){
+            on = false;
+        }
+        return on;
+    }
+
+    public boolean isForward(){
+        return slider.isForward();
     }
 
 

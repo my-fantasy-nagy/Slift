@@ -34,12 +34,18 @@ public class Slider {
         forward = dir;
     }
 
+    public void setPos(float pos){
+        this.pos = pos;
+    }
+
     public void reverseDirection(){
         forward = !forward;
     }
     public float getPosition(){
         return pos;
     }
+    public boolean isForward() {return forward;}
+
 
 
 }
