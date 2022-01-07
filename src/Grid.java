@@ -54,4 +54,10 @@ public class Grid {
             column.shuffleTriggerOrder();
         }
     }
+
+    public void alignColumns(){
+        for(CellColumn column: cols){
+            column.alignTriggerOrder();
+        }
+    }
 }

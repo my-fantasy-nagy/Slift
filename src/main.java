@@ -45,8 +45,6 @@ public class main extends PApplet {
 //        cell.update();
 
 //        slider.update();
-
-
     }
 
     public void mousePressed() {
@@ -64,6 +62,9 @@ public class main extends PApplet {
 //                column.allCellsToOn();
             }
             if (key == 's' || key == 'S') {
+                grid.alignColumns();
+            }
+            if (key == 'd' || key == 'D') {
 //                column.allCellsToOff();
             }
         }

@@ -101,7 +101,7 @@ public class CellColumn {
     public void alignTriggerOrder(){
         IntList newList = new IntList();
         for(int i = 0; i < numCells; i++){
-            triggerOrder.append(i);
+            newList.append(i);
         }
         triggerOrder = newList;
     }
