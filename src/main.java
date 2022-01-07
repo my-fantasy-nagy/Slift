@@ -37,7 +37,7 @@ public class main extends PApplet {
     }
 
     public void mousePressed() {
-        cell.transition();
+        cell.reverse();
     }
 
 

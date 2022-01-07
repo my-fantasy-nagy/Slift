@@ -66,7 +66,12 @@ public class Slider {
         this.dir = dir;
     }
 
-    public void setDirection(SliderState state){
+    public void setState(SliderState state) {
+        if(state == SliderState.ON){
+            pos = 1.0F;
+        }else if(state == SliderState.OFF){
+            pos = 0.0F;
+        }
         this.state = state;
     }
 
@@ -82,17 +87,8 @@ public class Slider {
         }
     }
 
-    public void sliderOff(){
-        pos = 0.0F;
-        dir = SliderDirections.BACKWARD;
-    }
-
     public float getPosition(){
         return pos;
-    }
-
-    public SliderDirections getDirection(){
-        return dir;
     }
 
     public void pause(){

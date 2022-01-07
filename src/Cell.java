@@ -32,8 +32,24 @@ public class Cell {
     }
 
 
-    public void transition(){
+    public void reverse(){
         slider.reverseDirection();
+    }
+
+    public void forward(){
+        slider.setDirection(Slider.SliderDirections.FORWARD);
+    }
+
+    public void backward(){
+        slider.setDirection(Slider.SliderDirections.BACKWARD);
+    }
+
+    public void on(){
+        slider.setState(Slider.SliderState.ON);
+    }
+
+    public void off(){
+        slider.setState(Slider.SliderState.OFF);
     }
 
     public void pause(){
@@ -43,6 +59,7 @@ public class Cell {
     public void resume(){
         slider.resume();
     }
+
 
 
 }
