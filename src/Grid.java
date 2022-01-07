@@ -48,4 +48,10 @@ public class Grid {
             col.transition();
         }
     }
+
+    public void shuffleColumns(){
+        for(CellColumn column: cols){
+            column.shuffleTriggerOrder();
+        }
+    }
 }

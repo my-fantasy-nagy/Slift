@@ -55,12 +55,6 @@ public class CellColumn {
 
         //transition case
         if(trans) {
-            //edge case for first and last cells
-            if(currentIndex == numCells - 1 || currentIndex == 0){
-                if(slider.getPosition() == 0.0F || slider.getPosition() == 1.0F){
-                    cells.get(triggerOrder.get(currentIndex)).transition();
-                }
-            }
             slider.update();
         }
 
@@ -76,6 +70,19 @@ public class CellColumn {
 
         //set previous index
         prevIndex = currentIndex;
+    }
+
+    public void transition(){
+//        int currentIndex = (int) PApplet.map(slider.getPosition(), 0.0F, 1.0F, 0.0F, numCells-1.0F);
+
+        slider.reverseDirection();
+        trans = true;
+        dir = !dir;
+
+        if(trans && prevIndex != -1.0F){
+            cells.get(triggerOrder.get(prevIndex)).setDirection(dir) ;
+        }
+
     }
 
     public void fadeInOut(){
@@ -104,11 +111,6 @@ public class CellColumn {
         prevIndex = triggerOrder.get(0);
     }
 
-    public void transition(){
-        slider.reverseDirection();
-        trans = true;
-        dir = !dir;
-    }
 
 
     public void allCellsToOn(){

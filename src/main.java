@@ -60,6 +60,7 @@ public class main extends PApplet {
     public void checkInput(){
         if (keyPressed) {
             if (key == 'a' || key == 'A') {
+                grid.shuffleColumns();
 //                column.allCellsToOn();
             }
             if (key == 's' || key == 'S') {
