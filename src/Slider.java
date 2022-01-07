@@ -1,37 +1,77 @@
+import Constants.ConstantsFile;
+
+import java.sql.SQLOutput;
+
 public class Slider {
+
+    public enum SliderState {
+        OFF,
+        ON,
+        TRANS
+    }
+
+    public enum SliderDirections{
+        FORWARD,
+        BACKWARD,
+    }
 
     float rate;
     float pos;
-    boolean forward;
-//    PApplet pa;
+    boolean pause;
+    SliderState state;
+    SliderDirections dir;
+
 
     public Slider(float rate) {
         this.rate = rate;
-        forward = false;
-        pos = 0;
+        pos = 0.0F;
+        pause = false;
+        state = SliderState.OFF;
+        dir = SliderDirections.BACKWARD;
     }
 
     public void update(){
 
-        //check direction and move position accordingly
+            //check direction and move position accordingly
+            switch (dir) {
 
-        if (forward) {
-            pos += rate;
-        } else {
-            pos -= rate;
-        }
+                case FORWARD:
 
-        //hold position on min/max values
-        if(pos >= 1.0){
-            pos = 1.0F;
-        }
-        if(pos <= 0.0){
-            pos = 0.0F;
-        }
+                    //increment slider position
+                    pos += rate;
+
+                    //check edge position and set val/direction
+                    if (pos >= 1.0) {
+                        pos = 1.0F;
+                        state = SliderState.ON;
+                    } else {
+                        state = SliderState.TRANS;
+                    }
+                    break;
+
+                case BACKWARD:
+
+                    //decrement slider position
+                    pos -= rate;
+
+                    //check edge position and set val/direction
+                    if (pos <= 0.0) {
+                        pos = 0.0F;
+                        state = SliderState.OFF;
+                    } else {
+                        state = SliderState.TRANS;
+                    }
+                    break;
+            }
+
     }
 
-    public void setDirection(boolean dir){
-        forward = dir;
+    public void setDirection(SliderDirections dir){
+        this.dir = dir;
+    }
+
+    public void setDirection(SliderState state){
+        this.state = state;
     }
 
     public void setPos(float pos){
@@ -39,13 +79,36 @@ public class Slider {
     }
 
     public void reverseDirection(){
-        forward = !forward;
+        if(dir == SliderDirections.FORWARD){
+            dir = SliderDirections.BACKWARD;
+        }
+        else if(dir == SliderDirections.BACKWARD){
+            System.out.println("HERE");
+            dir = SliderDirections.FORWARD;
+        }
+
     }
     public float getPosition(){
         return pos;
     }
-    public boolean isForward() {return forward;}
 
+    public SliderDirections getDirection(){
+        return dir;
+    }
 
+    public void pause(){
+        pause = true;
+    }
+
+    public void resume(){
+        pause = false;
+    }
+
+    public void printReadOut(){
+        System.out.println("SLIDER_POS: " + pos +
+                ".....SLIDER_DIR: " + dir +
+                ".....SLIDER_STATE: " + state
+        );
+    }
 
 }

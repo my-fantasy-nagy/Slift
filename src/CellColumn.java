@@ -49,8 +49,8 @@ public class CellColumn {
         //look for slider index transitions and trigger cells
         if(prevIndex != currentIndex) {
             Cell currentCell = cells.get(triggerOrder.get(currentIndex));
-            currentCell.transition();
-            currentCell.setDirection(dir);
+            currentCell.transitionDown();
+//            currentCell.setDirection(dir);
         }
 
         //transition case
@@ -80,22 +80,9 @@ public class CellColumn {
         dir = !dir;
 
         if(trans && prevIndex != -1.0F){
-            cells.get(triggerOrder.get(prevIndex)).setDirection(dir) ;
+//            cells.get(triggerOrder.get(prevIndex)).setDirection(dir) ;
         }
 
-    }
-
-    public void fadeInOut(){
-
-        for(Cell cell : cells){
-            float pos = cell.getPos();
-            if(pos <= 0.0){
-                cell.transition();
-            }
-            else if(pos >= 1.0){
-                cell.transition();
-            }
-        }
     }
 
     public void alignTriggerOrder(){
@@ -117,7 +104,7 @@ public class CellColumn {
         //TODO: Fix bug in ON/OFF Sequences
         trans = false;
         for(Cell cell : cells){
-            cell.setDirection(true);
+//            cell.setDirection(true);
         }
         slider.setPos(1.0F);
     }
@@ -125,7 +112,7 @@ public class CellColumn {
     public void allCellsToOff(){
         trans = false;
         for(Cell cell : cells){
-            cell.setDirection(false);
+//            cell.setDirection(false);
         }
         slider.setPos(0.0F);
     }

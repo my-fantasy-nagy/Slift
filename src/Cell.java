@@ -38,7 +38,8 @@ public class Cell {
         }
     }
 
-    public void transition(){
+    //TODO: ADD TRANSITIONS with directions using Enums
+    public void transitionDown(){
         slider.reverseDirection();
         trans = true;
     }
@@ -47,10 +48,10 @@ public class Cell {
         return slider.getPosition();
     }
 
-    void setDirection(boolean dir){
-        trans = true;
-        slider.setDirection(dir);
-    }
+//    void setDirection(boolean dir){
+//        trans = true;
+//        slider.setDirection(dir);
+//    }
 
     public boolean isOn(){
         boolean on = true;
@@ -61,7 +62,7 @@ public class Cell {
     }
 
     public boolean isForward(){
-        return slider.isForward();
+        return false;
     }
 
 

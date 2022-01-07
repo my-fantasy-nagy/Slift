@@ -12,6 +12,17 @@ public final class ConstantsFile {
     public static final float CELL_SIZE = 20.0F;
     public static final float COLUMN_RATE = 0.01F;
     public static final float ROW_RATE = 0.01F;
+
+
+    public enum InputDirection {
+        UP,
+        DOWN,
+        LEFT,
+        RIGHT,
+        NONE
+    }
+
+
 }
 
 
