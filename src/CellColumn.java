@@ -49,7 +49,7 @@ public class CellColumn {
         //look for slider index transitions and trigger cells
         if(prevIndex != currentIndex) {
             Cell currentCell = cells.get(triggerOrder.get(currentIndex));
-            currentCell.transitionDown();
+            currentCell.transition();
 //            currentCell.setDirection(dir);
         }
 

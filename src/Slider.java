@@ -1,7 +1,3 @@
-import Constants.ConstantsFile;
-
-import java.sql.SQLOutput;
-
 public class Slider {
 
     public enum SliderState {
@@ -31,7 +27,7 @@ public class Slider {
     }
 
     public void update(){
-
+        if(!pause) {
             //check direction and move position accordingly
             switch (dir) {
 
@@ -63,7 +59,7 @@ public class Slider {
                     }
                     break;
             }
-
+        }
     }
 
     public void setDirection(SliderDirections dir){
@@ -78,16 +74,19 @@ public class Slider {
         this.pos = pos;
     }
 
-    public void reverseDirection(){
-        if(dir == SliderDirections.FORWARD){
+    public void reverseDirection() {
+        if (dir == SliderDirections.FORWARD) {
             dir = SliderDirections.BACKWARD;
-        }
-        else if(dir == SliderDirections.BACKWARD){
-            System.out.println("HERE");
+        } else if (dir == SliderDirections.BACKWARD) {
             dir = SliderDirections.FORWARD;
         }
-
     }
+
+    public void sliderOff(){
+        pos = 0.0F;
+        dir = SliderDirections.BACKWARD;
+    }
+
     public float getPosition(){
         return pos;
     }

@@ -11,7 +11,7 @@ public class main extends PApplet {
     }
 
     Slider slider;
-//    Cell cell;
+    Cell cell;
 //    CellColumn column;
 //    Grid grid;
     InputDirection dir;
@@ -21,27 +21,34 @@ public class main extends PApplet {
     }
 
     public void setup(){
-//        frameRate(FRAME_RATE);
-        frameRate(5);
+        frameRate(FRAME_RATE);
+//        frameRate(5);
         int numCells = (int)(WIDE/CELL_SIZE);
         dir = InputDirection.NONE;
-        slider = new Slider(CELL_RATE);
+        cell = new Cell(this, new PVector(0,0), CELL_SIZE, 255, 0);
 
     }
 
     public void draw(){
 
         background(0);
-        slider.update();
-        slider.printReadOut();
-//      checkInput();
+        cell.update();
+
     }
 
     public void mousePressed() {
-        slider.reverseDirection();
+        cell.transition();
     }
 
-//    public void checkInput(){
-//
+
+
+    public void keyPressed() {
+        if (key == 'p') {
+
+        }
+        if (key == 'r'){
+
+        }
+    }
 
 }

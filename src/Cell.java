@@ -28,41 +28,20 @@ public class Cell {
         finalFill = pa.lerpColor(colorA, colorB, slider.getPosition());
         pa.fill(finalFill);
         pa.rect(pos.x, pos.y, size, size);
-
-        if(trans){
-            slider.update();
-        }
-
-        if(slider.getPosition() == 1.0 || slider.getPosition() == 0.0) {
-            trans = false;
-        }
+        slider.update();
     }
 
-    //TODO: ADD TRANSITIONS with directions using Enums
-    public void transitionDown(){
+
+    public void transition(){
         slider.reverseDirection();
-        trans = true;
     }
 
-    public float getPos(){
-        return slider.getPosition();
+    public void pause(){
+        slider.pause();
     }
 
-//    void setDirection(boolean dir){
-//        trans = true;
-//        slider.setDirection(dir);
-//    }
-
-    public boolean isOn(){
-        boolean on = true;
-        if(slider.getPosition() == 1.0 || slider.getPosition() == 0.0){
-            on = false;
-        }
-        return on;
-    }
-
-    public boolean isForward(){
-        return false;
+    public void resume(){
+        slider.resume();
     }
 
 
