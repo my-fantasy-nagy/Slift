@@ -32,7 +32,6 @@ public class Slider {
             switch (dir) {
 
                 case FORWARD:
-
                     //increment slider position
                     pos += rate;
 
@@ -79,6 +78,10 @@ public class Slider {
         this.pos = pos;
     }
 
+    public void setRate(float rate){
+        this.rate = rate;
+    }
+
     public void reverseDirection() {
         if (dir == SliderDirections.FORWARD) {
             dir = SliderDirections.BACKWARD;
@@ -91,6 +94,15 @@ public class Slider {
         return pos;
     }
 
+
+
+    public SliderState getState(){
+        return state;
+    }
+
+    public SliderDirections getDirection(){
+        return dir;
+    }
     public void pause(){
         pause = true;
     }

@@ -8,7 +8,7 @@ import static Constants.ConstantsFile.COLUMN_RATE;
 
 public class Grid {
     PApplet pa;
-    ArrayList<CellColumn> cols = new ArrayList<>();
+    ArrayList<Column> cols = new ArrayList<>();
     IntList triggerOrder;
     Slider slider;
     int numColumns;
@@ -30,7 +30,7 @@ public class Grid {
             float posY = pos.x;
 
             // create new column
-            cols.add(new CellColumn(pa, cellSize, numCells, new PVector(posX, posY)));
+//            cols.add(new Column(pa, cellSize, numCells, new PVector(posX, posY)));
 
             //populate trigger order in increasing numerical order
             triggerOrder.append(i);
@@ -38,25 +38,25 @@ public class Grid {
     }
 
     public void update(){
-        for(CellColumn col: cols){
+        for(Column col: cols){
             col.update();
         }
     }
 
     public void transition(){
-        for(CellColumn col: cols){
-            col.transition();
+        for(Column col: cols){
+//            col.reverse();
         }
     }
 
     public void shuffleColumns(){
-        for(CellColumn column: cols){
+        for(Column column: cols){
             column.shuffleTriggerOrder();
         }
     }
 
     public void alignColumns(){
-        for(CellColumn column: cols){
+        for(Column column: cols){
             column.alignTriggerOrder();
         }
     }

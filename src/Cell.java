@@ -3,7 +3,6 @@ import processing.core.PVector;
 
 import static Constants.ConstantsFile.CELL_RATE;
 
-
 public class Cell {
     PApplet pa;
     PVector pos;
@@ -40,6 +39,9 @@ public class Cell {
         slider.setDirection(Slider.SliderDirections.FORWARD);
     }
 
+    public void setDirection(Slider.SliderDirections dir) {
+        slider.setDirection(dir);
+    }
     public void backward(){
         slider.setDirection(Slider.SliderDirections.BACKWARD);
     }

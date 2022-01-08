@@ -10,9 +10,9 @@ public class main extends PApplet {
         PApplet.main("main");
     }
 
-    Slider slider;
-    Cell cell;
-//    CellColumn column;
+//    Slider slider;
+//    Cell cell;
+    Column col;
 //    Grid grid;
     InputDirection dir;
 
@@ -25,21 +25,19 @@ public class main extends PApplet {
 //        frameRate(5);
         int numCells = (int)(WIDE/CELL_SIZE);
         dir = InputDirection.NONE;
-        cell = new Cell(this, new PVector(0,0), CELL_SIZE, 255, 0);
+        col = new Column(this, new PVector(0,0), CELL_SIZE, numCells);
 
     }
 
     public void draw(){
-
         background(0);
-        cell.update();
+        col.update();
 
     }
 
     public void mousePressed() {
-        cell.reverse();
+        col.reverseSequential();
     }
-
 
 
     public void keyPressed() {
