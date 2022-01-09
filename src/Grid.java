@@ -15,10 +15,14 @@ public class Grid {
     Slider slider;
     int numColumns;
     int index;
+    public boolean sequential;
+    ConstantsFile.InputDirection dir;
 
     public Grid(PApplet pa, PVector pos, float cellSize, int numCells, int numColumns){
         this.pa = pa;
         this.numColumns = numColumns;
+
+        sequential = false;
         index = 0;
 
         //create intList to determine display order
@@ -42,12 +46,26 @@ public class Grid {
     }
 
     public void update(){
+        //set the index and constrain to number of cells.
+        index = (int) pa.map(slider.getPosition(), 0.0F, 1.0F, 0.0F, numColumns);
+        index = pa.constrain(index, 0, numColumns - 1);
+
+        if (dir == ConstantsFile.InputDirection.LEFT) {
+            cols.get(index).fadeOff();
+        }
+        else if (dir == ConstantsFile.InputDirection.RIGHT) {
+            cols.get(index).fadeOn();
+        }
+
         for(Column col: cols){
             col.update();
         }
+
+        slider.update();
     }
 
     public void setDirection(ConstantsFile.InputDirection dir){
+        this.dir = dir;
         switch(dir){
             case UP:
                 sequentialUp();
@@ -70,14 +88,14 @@ public class Grid {
         }
     }
 
-    //TODO: sequentialUP
+
     private void sequentialUp() {
         for (Column col : cols) {
             col.sequentialUp();
         }
     }
 
-    //TODO: sequentialDown
+
     private void sequentialDown(){
         for (Column col : cols) {
             col.sequentialDown();
@@ -86,14 +104,26 @@ public class Grid {
 
     //TODO: sequentialRight
     private void sequentialRight(){
+        slider.setDirection(Slider.SliderDirections.FORWARD);
 
     }
 
-    //TODO: sequentialLeft
     private void sequentialLeft(){
+        slider.setDirection(Slider.SliderDirections.BACKWARD);
 
     }
 
+    public void fadeOn() {
+        for(Column col: cols){
+            col.fadeOn();
+        }
+    }
+
+    public void fadeOff() {
+        for(Column col: cols){
+            col.fadeOff();
+        }
+    }
 
     public void shuffleColumns(){
         for(Column column: cols){

@@ -127,6 +127,18 @@ public class Column {
         }
     }
 
+    public void fadeOn() {
+        for (Cell cell : cells) {
+            cell.setDirection(Slider.SliderDirections.FORWARD);
+        }
+    }
+
+    public void fadeOff() {
+        for (Cell cell : cells) {
+            cell.setDirection(Slider.SliderDirections.BACKWARD);
+        }
+    }
+
     public void allCellsToOff() {
         sequential = false;
 

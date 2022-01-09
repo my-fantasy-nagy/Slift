@@ -44,11 +44,11 @@ public class main extends PApplet {
         switch(key){
             //all cells on
             case 'a':
-//                col.allCellsToOn();
+                grid.fadeOn();
                 break;
             //all cells off
             case 's':
-//                col.allCellsToOff();
+                grid.fadeOff();
                 break;
 
             case 'q':
