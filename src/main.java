@@ -12,9 +12,10 @@ public class main extends PApplet {
 
 //    Slider slider;
 //    Cell cell;
-    Column col;
-//    Grid grid;
+//    Column col;
+    Grid grid;
     InputDirection dir;
+
 
     public void settings() {
         size(WIDE, WIDE);
@@ -25,58 +26,60 @@ public class main extends PApplet {
 //        frameRate(5);
         int numCells = (int)(WIDE/CELL_SIZE);
         dir = InputDirection.NONE;
-        col = new Column(this, new PVector(0,0), CELL_SIZE, numCells);
-
+//        col = new Column(this, new PVector(0,0), CELL_SIZE, numCells);
+        grid = new Grid(this, new PVector(0.0F,0.0F), CELL_SIZE, numCells, numCells);
     }
 
     public void draw(){
         background(0);
-        col.update();
+        grid.update();
+        grid.setDirection(dir);
     }
 
     public void mousePressed() {
-        col.reverseSequential();
+//        col.reverseSequential();
     }
 
     public void keyPressed() {
         switch(key){
             //all cells on
             case 'a':
-                col.allCellsToOn();
+//                col.allCellsToOn();
                 break;
             //all cells off
             case 's':
-                col.allCellsToOff();
+//                col.allCellsToOff();
                 break;
 
             case 'q':
-                col.reverseAll();
+//                col.reverseAll();
                 break;
 
             case 'w':
-                col.reverseSequential();
+//                col.reverseSequential();
                 break;
         }
 
         switch(keyCode){
             case UP:
-                col.sequentialUp();
+                dir = InputDirection.UP;
                 break;
 
             case DOWN:
-                col.sequentialDown();
+                dir = InputDirection.DOWN;
                 break;
 
             case RIGHT:
+                dir = InputDirection.RIGHT;
                 break;
 
             case LEFT:
+                dir = InputDirection.LEFT;
                 break;
 
             default:
+                dir = InputDirection.NONE;
                 break;
-
-
         }
     }
 

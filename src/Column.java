@@ -62,8 +62,6 @@ public class Column {
             sequential = false;
         }
 
-        slider.printReadOut();
-
     }
 
     public void reverseAll() {
@@ -74,7 +72,6 @@ public class Column {
         }
     }
 
-    //TODO: sequentialDown sequence
     public void sequentialDown() {
 
         //if column slider is off, just set slider to forward
@@ -89,7 +86,6 @@ public class Column {
         }
     }
 
-    //TODO: sequentialUp sequence(){
     public void sequentialUp(){
         if(slider.getState() == Slider.SliderState.ON){
             sequential = true;
@@ -118,8 +114,6 @@ public class Column {
     public void shuffleTriggerOrder(){
         triggerOrder.shuffle();
     }
-
-
 
     public void allCellsToOn(){
         sequential = false;
