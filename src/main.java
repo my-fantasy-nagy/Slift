@@ -32,19 +32,50 @@ public class main extends PApplet {
     public void draw(){
         background(0);
         col.update();
-
     }
 
     public void mousePressed() {
         col.reverseSequential();
     }
 
-
     public void keyPressed() {
-        if (key == 'p') {
+        switch(key){
+            //all cells on
+            case 'a':
+                col.allCellsToOn();
+                break;
+            //all cells off
+            case 's':
+                col.allCellsToOff();
+                break;
 
+            case 'q':
+                col.reverseAll();
+                break;
+
+            case 'w':
+                col.reverseSequential();
+                break;
         }
-        if (key == 'r'){
+
+        switch(keyCode){
+            case UP:
+                col.sequentialUp();
+                break;
+
+            case DOWN:
+                col.sequentialDown();
+                break;
+
+            case RIGHT:
+                break;
+
+            case LEFT:
+                break;
+
+            default:
+                break;
+
 
         }
     }

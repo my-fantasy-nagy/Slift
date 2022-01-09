@@ -8,23 +8,23 @@ public class Cell {
     PVector pos;
     Slider slider;
     float size;
-    int colorA;
-    int colorB;
+    int colorOn;
+    int colorOff;
     int finalFill = 0;
     boolean trans;
 
-    public Cell(PApplet pa, PVector pos, float size, int colorA, int colorB) {
+    public Cell(PApplet pa, PVector pos, float size, int colorOn, int colorOff) {
         this.pa = pa;
         this.pos = pos;
         this.size = size;
-        this.colorA = colorA;
-        this.colorB = colorB;
+        this.colorOn = colorOn;
+        this.colorOff = colorOff;
         trans = false;
         slider = new Slider(CELL_RATE);
     }
 
     public void update(){
-        finalFill = pa.lerpColor(colorA, colorB, slider.getPosition());
+        finalFill = pa.lerpColor(colorOn, colorOff, slider.getPosition());
         pa.fill(finalFill);
         pa.rect(pos.x, pos.y, size, size);
         slider.update();
@@ -42,6 +42,21 @@ public class Cell {
     public void setDirection(Slider.SliderDirections dir) {
         slider.setDirection(dir);
     }
+
+    public void setState(Slider.SliderState state){
+        slider.setState(state);
+    }
+
+    public void setCellPos(float pos){
+        slider.setPos(pos);
+    }
+
+    public void switchColors(){
+        int tempColor = colorOn;
+        colorOn = colorOff;
+        colorOff = tempColor;
+    }
+
     public void backward(){
         slider.setDirection(Slider.SliderDirections.BACKWARD);
     }

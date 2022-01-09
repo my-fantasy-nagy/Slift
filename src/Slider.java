@@ -11,11 +11,12 @@ public class Slider {
         BACKWARD,
     }
 
-    float rate;
-    float pos;
-    boolean pause;
-    SliderState state;
-    SliderDirections dir;
+    private SliderState state;
+    private SliderDirections dir;
+    private float rate;
+    private float pos;
+    private boolean pause;
+
 
 
     public Slider(float rate) {
@@ -89,6 +90,8 @@ public class Slider {
             dir = SliderDirections.FORWARD;
         }
     }
+
+
 
     public float getPosition(){
         return pos;

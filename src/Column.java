@@ -26,7 +26,7 @@ public class Column {
         slider = new Slider(COLUMN_RATE);
 
         //cycle through each cell, initialize it and add it to the Cell array
-        for(int i = 0; i < numCells; i++){
+        for (int i = 0; i < numCells; i++) {
 
             //calculate position
             float posY = i * cellSize + pos.y;
@@ -40,33 +40,65 @@ public class Column {
         }
     }
 
-    public void update(){
+    public void update() {
         //set the index and constrain to number of cells.
-        index = (int)pa.map(slider.getPosition(), 0.0F, 1.0F, 0.0F, numCells );
-        index = pa.constrain(index, 0, numCells-1);
+        index = (int) pa.map(slider.getPosition(), 0.0F, 1.0F, 0.0F, numCells);
+        index = pa.constrain(index, 0, numCells - 1);
 
 
-        if(sequential){
+        if (sequential) {
             cells.get(index).setDirection(slider.getDirection());
         }
 
         //update the cells
-        for(Cell cell: cells){
+        for (Cell cell : cells) {
             cell.update();
         }
 
         //udate slider
         slider.update();
 
-        if(slider.getState() == Slider.SliderState.ON || slider.getState() == Slider.SliderState.OFF){
+        if (slider.getState() == Slider.SliderState.ON || slider.getState() == Slider.SliderState.OFF) {
             sequential = false;
         }
 
+        slider.printReadOut();
+
     }
 
-    public void reverseAll(){
-        for(Cell cell: cells){
-            cell.reverse();
+    public void reverseAll() {
+        sequential = false;
+        slider.reverseDirection();
+        for (Cell cell : cells) {
+            cell.setDirection(slider.getDirection());
+        }
+    }
+
+    //TODO: sequentialDown sequence
+    public void sequentialDown() {
+
+        //if column slider is off, just set slider to forward
+        if(slider.getState() == Slider.SliderState.OFF){
+            sequential = true;
+            slider.setDirection(Slider.SliderDirections.FORWARD);
+        }
+        else if(slider.getState() == Slider.SliderState.TRANS){
+            if(slider.getDirection() == Slider.SliderDirections.BACKWARD){
+                slider.setDirection(Slider.SliderDirections.FORWARD);
+            }
+        }
+    }
+
+    //TODO: sequentialUp sequence(){
+    public void sequentialUp(){
+        if(slider.getState() == Slider.SliderState.ON){
+            sequential = true;
+            slider.setDirection(Slider.SliderDirections.BACKWARD);
+        }
+        else if(slider.getState() == Slider.SliderState.TRANS) {
+            if (slider.getDirection() == Slider.SliderDirections.FORWARD) {
+                slider.setDirection(Slider.SliderDirections.BACKWARD);
+            }
         }
     }
 
@@ -90,10 +122,26 @@ public class Column {
 
 
     public void allCellsToOn(){
+        sequential = false;
 
+        slider.setPos(1.0F);
+
+        for (Cell cell : cells) {
+            cell.setDirection(Slider.SliderDirections.FORWARD);
+            cell.setState(Slider.SliderState.ON);
+            cell.setCellPos(1.0F);
+        }
     }
 
     public void allCellsToOff() {
+        sequential = false;
 
+        slider.setPos(0.0F);
+
+        for (Cell cell : cells) {
+            cell.setDirection(Slider.SliderDirections.BACKWARD);
+            cell.setState(Slider.SliderState.OFF);
+            cell.setCellPos(0.0F);
+        }
     }
 }
