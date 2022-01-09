@@ -47,7 +47,7 @@ public class Column {
 
 
         if (sequential) {
-            cells.get(index).setDirection(slider.getDirection());
+            cells.get(triggerOrder.get(index)).setDirection(slider.getDirection());
         }
 
         //update the cells
@@ -109,6 +109,7 @@ public class Column {
             newList.append(i);
         }
         triggerOrder = newList;
+//        System.out.println(triggerOrder.toString());
     }
 
     public void shuffleTriggerOrder(){

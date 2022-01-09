@@ -15,14 +15,13 @@ public class Grid {
     Slider slider;
     int numColumns;
     int index;
-    public boolean sequential;
+
     ConstantsFile.InputDirection dir;
 
     public Grid(PApplet pa, PVector pos, float cellSize, int numCells, int numColumns){
         this.pa = pa;
         this.numColumns = numColumns;
 
-        sequential = false;
         index = 0;
 
         //create intList to determine display order
@@ -62,6 +61,10 @@ public class Grid {
         }
 
         slider.update();
+
+        if (slider.getState() == Slider.SliderState.ON || slider.getState() == Slider.SliderState.OFF) {
+            dir = ConstantsFile.InputDirection.NONE;
+        }
     }
 
     public void setDirection(ConstantsFile.InputDirection dir){
@@ -88,13 +91,11 @@ public class Grid {
         }
     }
 
-
     private void sequentialUp() {
         for (Column col : cols) {
             col.sequentialUp();
         }
     }
-
 
     private void sequentialDown(){
         for (Column col : cols) {
@@ -102,7 +103,6 @@ public class Grid {
         }
     }
 
-    //TODO: sequentialRight
     private void sequentialRight(){
         slider.setDirection(Slider.SliderDirections.FORWARD);
 
@@ -126,14 +126,27 @@ public class Grid {
     }
 
     public void shuffleColumns(){
-        for(Column column: cols){
-            column.shuffleTriggerOrder();
+
+        if(dir == ConstantsFile.InputDirection.NONE){
+            System.out.println("SHUFFLED");
+            for(Column column: cols){
+                column.shuffleTriggerOrder();
+            }
+        }
+        else{
+            System.out.println("CANNOT SHUFFLE");
         }
     }
 
     public void alignColumns(){
-        for(Column column: cols){
-            column.alignTriggerOrder();
+        if(dir == ConstantsFile.InputDirection.NONE) {
+            System.out.println("ALIGNED");
+            for (Column column : cols) {
+                column.alignTriggerOrder();
+            }
+        }
+        else{
+            System.out.println("CANNOT ALIGN");
         }
     }
 }

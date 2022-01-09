@@ -52,11 +52,11 @@ public class main extends PApplet {
                 break;
 
             case 'q':
-//                col.reverseAll();
+                grid.shuffleColumns();
                 break;
 
             case 'w':
-//                col.reverseSequential();
+                grid.alignColumns();
                 break;
         }
 
