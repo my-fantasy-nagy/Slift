@@ -57,6 +57,9 @@ public class Cell {
         colorOff = tempColor;
     }
 
+    public Slider.SliderState getState(){
+        return slider.getState();
+    }
     public void backward(){
         slider.setDirection(Slider.SliderDirections.BACKWARD);
     }

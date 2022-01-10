@@ -5,7 +5,6 @@ import processing.data.IntList;
 
 import java.util.ArrayList;
 
-import static Constants.ConstantsFile.COLUMN_RATE;
 import static Constants.ConstantsFile.ROW_RATE;
 
 public class Grid {
@@ -18,7 +17,7 @@ public class Grid {
 
     ConstantsFile.InputDirection dir;
 
-    public Grid(PApplet pa, PVector pos, float cellSize, int numCells, int numColumns){
+    public Grid(PApplet pa, PVector pos, int[] colors,  float cellSize, int numCells, int numColumns){
         this.pa = pa;
         this.numColumns = numColumns;
 
@@ -37,7 +36,7 @@ public class Grid {
             float posY = pos.x;
 
             // create new column
-            cols.add(new Column(pa, new PVector(posX, posY), cellSize, numCells));
+            cols.add(new Column(pa, new PVector(posX, posY), colors, cellSize, numCells));
 
             //populate trigger order in increasing numerical order
             triggerOrder.append(i);
@@ -65,6 +64,9 @@ public class Grid {
         if (slider.getState() == Slider.SliderState.ON || slider.getState() == Slider.SliderState.OFF) {
             dir = ConstantsFile.InputDirection.NONE;
         }
+
+
+
     }
 
     public void setDirection(ConstantsFile.InputDirection dir){

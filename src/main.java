@@ -1,6 +1,11 @@
 import static Constants.ConstantsFile.*;
+import static Constants.Colors.*;
+
+import Constants.Colors;
 import processing.core.PApplet;
 import processing.core.PVector;
+
+
 
 
 public class main extends PApplet {
@@ -15,7 +20,7 @@ public class main extends PApplet {
 //    Column col;
     Grid grid;
     InputDirection dir;
-
+    int[] colors;
 
     public void settings() {
         size(WIDE, WIDE);
@@ -26,14 +31,19 @@ public class main extends PApplet {
 //        frameRate(5);
         int numCells = (int)(WIDE/CELL_SIZE);
         dir = InputDirection.NONE;
-//        col = new Column(this, new PVector(0,0), CELL_SIZE, numCells);
-        grid = new Grid(this, new PVector(0.0F,0.0F), CELL_SIZE, numCells, numCells);
+        colors = new int[]{unhex(Colors.SCHOPENHAUERS_JOKE_0), unhex(Colors.SCHOPENHAUERS_JOKE_1)};
+        grid = new Grid(this, new PVector(0.0F,0.0F), colors, CELL_SIZE, numCells, numCells);
+
+
+        System.out.println();
+//        noLoop();
     }
 
     public void draw(){
         background(0);
         grid.update();
         grid.setDirection(dir);
+
     }
 
     public void mousePressed() {
@@ -42,11 +52,11 @@ public class main extends PApplet {
 
     public void keyPressed() {
         switch(key){
-            //all cells on
+
             case 'a':
                 grid.fadeOn();
                 break;
-            //all cells off
+
             case 's':
                 grid.fadeOff();
                 break;

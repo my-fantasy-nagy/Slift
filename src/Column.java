@@ -14,9 +14,10 @@ public class Column {
     int index;
     boolean sequential = false;
 
-    public Column(PApplet pa, PVector pos, float cellSize, int numCells) {
+    public Column(PApplet pa, PVector pos, int[] colors, float cellSize, int numCells) {
         this.pa = pa;
         this.numCells = numCells;
+
         index = 0;
 
         //create intList to determine display order
@@ -33,7 +34,7 @@ public class Column {
             float posX = pos.x;
 
             //create new cell
-            cells.add(new Cell(pa, new PVector(posX, posY), cellSize, 255, 0));
+            cells.add(new Cell(pa, new PVector(posX, posY), cellSize, colors[0], colors[1]));
 
             //populate trigger order in increasing numerical order
             triggerOrder.append(i);
@@ -104,16 +105,24 @@ public class Column {
     }
 
     public void alignTriggerOrder(){
-        IntList newList = new IntList();
-        for(int i = 0; i < numCells; i++){
-            newList.append(i);
-        }
-        triggerOrder = newList;
-//        System.out.println(triggerOrder.toString());
+//        if(slider.getState() != Slider.SliderState.TRANS) {
+//            if (cells.get(0).getState() != Slider.SliderState.TRANS) {
+                IntList newList = new IntList();
+                for (int i = 0; i < numCells; i++) {
+                    newList.append(i);
+                }
+                triggerOrder = newList;
+//            }
+//        }
+
     }
 
     public void shuffleTriggerOrder(){
-        triggerOrder.shuffle();
+//        if(slider.getState() != Slider.SliderState.TRANS) {
+//            if (cells.get(0).getState() != Slider.SliderState.TRANS) {
+                triggerOrder.shuffle();
+//            }
+//        }
     }
 
     public void allCellsToOn(){
