@@ -21,6 +21,8 @@ public class main extends PApplet {
     Grid grid;
     InputDirection dir;
     int[] colors;
+    String color0 = SHAANAS_PICK_0;
+    String color1 = SHAANAS_PICK_1;
 
     public void settings() {
         size(WIDE, WIDE);
@@ -31,7 +33,7 @@ public class main extends PApplet {
 //        frameRate(5);
         int numCells = (int)(WIDE/CELL_SIZE);
         dir = InputDirection.NONE;
-        colors = new int[]{unhex(Colors.SCHOPENHAUERS_JOKE_0), unhex(Colors.SCHOPENHAUERS_JOKE_1)};
+        colors = new int[]{unhex(color0), unhex(color1)};
         grid = new Grid(this, new PVector(0.0F,0.0F), colors, CELL_SIZE, numCells, numCells);
 
 

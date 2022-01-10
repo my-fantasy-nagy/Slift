@@ -26,6 +26,7 @@ public class Cell {
     public void update(){
         finalFill = pa.lerpColor(colorOn, colorOff, slider.getPosition());
         pa.fill(finalFill);
+        pa.stroke(255);
         pa.rect(pos.x, pos.y, size, size);
         slider.update();
     }
