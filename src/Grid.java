@@ -3,6 +3,7 @@ import processing.core.PApplet;
 import processing.core.PVector;
 import processing.data.IntList;
 
+import java.awt.font.FontRenderContext;
 import java.util.ArrayList;
 
 import static Constants.ConstantsFile.COLUMN_RATE;
@@ -19,7 +20,8 @@ public class Grid {
     int indexRows;
     int indexCols;
 
-    ConstantsFile.InputDirection dir;
+    ConstantsFile.InputDirection dirVert;
+    ConstantsFile.InputDirection dirHoriz;
 
     public Grid(PApplet pa, PVector pos, int[] colors,  float cellSize, int numRows, int numCols){
         this.pa = pa;
@@ -49,47 +51,11 @@ public class Grid {
 
     }
 
-//    private void
 
     public void update(){
-        //SET INDEX OF CELLS TO MATCH SLIDER POSITION
-        indexCols = pa.floor(sliderCols.getPosition()* (numCols-1));
-        indexRows = pa.floor(sliderRows.getPosition()* (numRows-1));
-        System.out.println(indexCols);
 
-
-
-        //TODO: FIX UP/DOWN FROM BREAKING RIGHT/LEFT AND VICE A VERSA
-        //GET POSITION OF OPPOSITE INDEX OF OTHER INDEX AND MOVE SLIDER ACCORDINGLY
-        if(dir == ConstantsFile.InputDirection.RIGHT){
-            for(int i = 0; i <numRows; i++){
-                int cellIndex = indexCols +i * numCols ;
-                cells.get(cellIndex).setDirection(Slider.SliderDirections.FORWARD);
-            }
-        }
-
-        if(dir == ConstantsFile.InputDirection.LEFT){
-            for(int i = 0; i < numRows; i++){
-                int cellIndex = indexCols +i * numCols ;
-                cells.get(cellIndex).setDirection(Slider.SliderDirections.BACKWARD);
-            }
-        }
-
-        if(dir == ConstantsFile.InputDirection.DOWN){
-            for(int i = 0; i < numCols; i++){
-                int cellIndex = indexRows * numCols + i;
-                cells.get(cellIndex).setDirection(Slider.SliderDirections.FORWARD);
-            }
-        }
-
-        if(dir == ConstantsFile.InputDirection.UP){
-            for(int i = 0; i < numCols; i++){
-                int cellIndex = indexRows * numCols + i;
-                cells.get(cellIndex).setDirection(Slider.SliderDirections.BACKWARD);
-            }
-        }
-
-
+        //GET DIRECTIONS OF SLIDERS AND MAP CELLS ON/OFF
+        mapCellsToSliders();
 
         //update cells
         for(Cell cell : cells){
@@ -100,89 +66,97 @@ public class Grid {
         sliderRows.update();
         sliderCols.update();
 
-
-
-
     }
 
-    public void setDirection(ConstantsFile.InputDirection dir){
-        this.dir = dir;
-        switch(dir){
-            case UP:
-                sliderUp();
-                break;
+    private void mapCellsToSliders(){
+        //SET INDEX OF CELLS TO MATCH SLIDER POSITION
+        indexCols = pa.floor(sliderCols.getPosition()* (numCols-1));
+        indexRows = pa.floor(sliderRows.getPosition()* (numRows-1));
 
-            case DOWN:
-                sliderDown();
-                break;
+        //CASE FOR RIGHT
+        if(dirHoriz == ConstantsFile.InputDirection.RIGHT){
+            for(int i = 0; i <numRows; i++){
+                int cellIndex = indexCols +i * numRows ;
+                cells.get(cellIndex).setDirection(Slider.SliderDirections.FORWARD);
+            }
+            System.out.println();
+        }
 
-            case RIGHT:
-                sliderRight();
-                break;
-//
-            case LEFT:
-                sliderLeft();
-                break;
+        //CASE FOR LEFT
+        if(dirHoriz == ConstantsFile.InputDirection.LEFT){
+            for(int i = 0; i < numRows; i++){
+                int cellIndex = indexCols +i * numCols ;
+                cells.get(cellIndex).setDirection(Slider.SliderDirections.BACKWARD);
+            }
+        }
 
-            case NONE:
-                break;
+        //CASE FOR DOWN
+        if(dirVert == ConstantsFile.InputDirection.DOWN){
+            for(int i = 0; i < numCols; i++){
+                int cellIndex = indexRows * numCols + i;
+                cells.get(cellIndex).setDirection(Slider.SliderDirections.FORWARD);
+            }
+        }
+
+        //CASE FOR UP{
+        if(dirVert == ConstantsFile.InputDirection.UP){
+            for(int i = 0; i < numCols; i++){
+                int cellIndex = indexRows * numCols + i;
+                cells.get(cellIndex).setDirection(Slider.SliderDirections.BACKWARD);
+            }
+        }
+    }
+
+    public void setDirection(ConstantsFile.InputDirection dirHoriz, ConstantsFile.InputDirection dirVert ){
+
+        this.dirHoriz = dirHoriz;
+        this.dirVert = dirVert;
+
+        // LEFT MAPPED TO BACKWARD
+        if(dirHoriz == ConstantsFile.InputDirection.LEFT){
+            sliderCols.setDirection(Slider.SliderDirections.BACKWARD);
+        }
+
+        // RIGHT MAPPED TO FORWARD
+        else if(dirHoriz == ConstantsFile.InputDirection.RIGHT){
+            sliderCols.setDirection(Slider.SliderDirections.FORWARD);
+        }
+
+        // UP MAPPED TO BACKWARD
+        if(dirVert == ConstantsFile.InputDirection.UP){
+            sliderRows.setDirection(Slider.SliderDirections.BACKWARD);
+        }
+
+        // DOWN MAPPED TO FORWARD
+        else if(dirVert == ConstantsFile.InputDirection.DOWN){
+            sliderRows.setDirection(Slider.SliderDirections.FORWARD);
         }
     }
 
     private void sliderUp() {
-        // UP MAPPED TO BACKWARD
-        sliderRows.setDirection(Slider.SliderDirections.BACKWARD);
-    }
-//
-    private void sliderDown(){
-        // DOWN MAPPED TO FORWARD
-        sliderRows.setDirection(Slider.SliderDirections.FORWARD);
-    }
-//
-    private void sliderRight(){
-        // RIGHT MAPPED TO FORWARD
-        sliderCols.setDirection(Slider.SliderDirections.FORWARD);
+
+
     }
 
-    private void sliderLeft(){
-        // LEFT MAPPED TO BACKWARD
-        sliderCols.setDirection(Slider.SliderDirections.BACKWARD);
-    }
-//
     public void fadeOn() {
         for(Cell cell : cells){
             cell.forward();
         }
     }
-//
+
     public void fadeOff() {
         for(Cell cell: cells){
             cell.backward();
         }
     }
-//
+
+    //TODO: SHUFFLE GRID
 //    public void shuffleColumns(){
-//
-//        if(dir == ConstantsFile.InputDirection.NONE){
-//            System.out.println("SHUFFLED");
-//            for(Column column: cols){
-//                column.shuffleTriggerOrder();
-//            }
-//        }
-//        else{
-//            System.out.println("CANNOT SHUFFLE");
-//        }
+
 //    }
-//
+
+    //TODO: UNSHUFFLE THE GRID
 //    public void alignColumns(){
-//        if(dir == ConstantsFile.InputDirection.NONE) {
-//            System.out.println("ALIGNED");
-//            for (Column column : cols) {
-//                column.alignTriggerOrder();
-//            }
-//        }
-//        else{
-//            System.out.println("CANNOT ALIGN");
-//        }
+
 //    }
 }

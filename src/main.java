@@ -8,11 +8,13 @@ import processing.core.PVector;
 
 
 //TODO:
-// - GET DIRECTIONS FIXED
 // ADD IN CAMO FRUIT COLOR ARRAYS
+// Shuffle Columns and UnShuffle
+// FIX SKIPPED COLUMNS/ROWS WHEN RATE IS TOO FAST
 // BUBBLE SORT
 // GUI
 // CHANGE TO DIFFERENT FRUITS
+
 
 
 public class main extends PApplet {
@@ -24,9 +26,9 @@ public class main extends PApplet {
 
 //    Slider slider;
 //    Cell cell;
-//    Column col;
     Grid grid;
-    InputDirection dir;
+    InputDirection dirHoriz;
+    InputDirection dirVert;
     int[] colors;
     String color0 = SHAANAS_PICK_0;
     String color1 = SHAANAS_PICK_1;
@@ -40,7 +42,8 @@ public class main extends PApplet {
 //        frameRate(2);
         int numCols = (int)(HIGH/CELL_SIZE);
         int numRows = (int)(WIDE/CELL_SIZE);
-        dir = InputDirection.NONE;
+        dirHoriz = InputDirection.NONE;
+        dirVert = InputDirection.NONE;
         colors = new int[]{unhex(color0), unhex(color1)};
         grid = new Grid(this, new PVector(0.0F,0.0F), colors, CELL_SIZE, numCols, numRows);
 
@@ -49,7 +52,7 @@ public class main extends PApplet {
 
     public void draw(){
         background(0);
-        grid.setDirection(dir);
+        grid.setDirection(dirHoriz, dirVert);
         grid.update();
 
 
@@ -81,23 +84,24 @@ public class main extends PApplet {
 
         switch(keyCode){
             case UP:
-                dir = InputDirection.UP;
+                dirVert = InputDirection.UP;
                 break;
 
             case DOWN:
-                dir = InputDirection.DOWN;
+                dirVert = InputDirection.DOWN;
                 break;
 
             case RIGHT:
-                dir = InputDirection.RIGHT;
+                dirHoriz = InputDirection.RIGHT;
                 break;
 
             case LEFT:
-                dir = InputDirection.LEFT;
+                dirHoriz = InputDirection.LEFT;
                 break;
 
             default:
-                dir = InputDirection.NONE;
+                dirVert = InputDirection.NONE;
+                dirHoriz = InputDirection.NONE;
                 break;
         }
     }
