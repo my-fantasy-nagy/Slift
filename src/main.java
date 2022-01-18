@@ -37,6 +37,7 @@ public class main extends PApplet {
     int[] mango;
     int[] blueberry;
     int[] watermelon;
+    int[] banana;
     boolean[] seeds;
     int numRows;
     int numCols;
@@ -58,11 +59,12 @@ public class main extends PApplet {
 
         //set colors
         seeds = CamoFruit.generateSeeds(this, numRows, numCols);
-        mango = CamoFruit.mango(this, numRows, numCols, 0);
-        blueberry = CamoFruit.blueberry(this, numRows, numCols,0);
-        watermelon = CamoFruit.watermelon(this, numRows, numCols, 0, seeds);
+        mango = CamoFruit.mango(this, numRows, numCols, inc);
+        blueberry = CamoFruit.blueberry(this, numRows, numCols,inc);
+        watermelon = CamoFruit.watermelon(this, numRows, numCols, inc, seeds);
+        banana = CamoFruit.banana(this, numRows, numCols, inc);
 
-        grid = new Grid(this, new PVector(0.0F,0.0F), watermelon, blueberry, CELL_SIZE, numCols, numRows);
+        grid = new Grid(this, new PVector(0.0F,0.0F), banana, watermelon, CELL_SIZE, numCols, numRows);
 //        noLoop();
 
         inc = 0;
@@ -75,9 +77,10 @@ public class main extends PApplet {
         mango = mango(this, numRows, numCols,  inc);
         blueberry = blueberry(this, numRows, numCols, inc);
         watermelon = watermelon(this, numRows, numCols, inc, seeds);
+        banana = banana(this, numRows, numCols, inc);
         grid.setDirection(dirHoriz, dirVert);
-        grid.setColorA(watermelon);
-        grid.setColorB(blueberry);
+        grid.setColorA(blueberry);
+        grid.setColorB(watermelon);
         grid.update();
     }
 

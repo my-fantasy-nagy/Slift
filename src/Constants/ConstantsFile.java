@@ -13,6 +13,8 @@ public final class ConstantsFile {
     public static final float CELL_RATE = 0.01F;
     public static final float COLUMN_RATE = 0.01F;
     public static final float ROW_RATE = 0.01F;
+    public static final float ZERO_F = 0.0F;
+    public static final float ONE_F = 1.0F;
 
 
     public enum InputDirection {
