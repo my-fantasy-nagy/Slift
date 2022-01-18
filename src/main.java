@@ -7,6 +7,13 @@ import processing.core.PVector;
 
 
 
+//TODO:
+// - GET DIRECTIONS FIXED
+// ADD IN CAMO FRUIT COLOR ARRAYS
+// BUBBLE SORT
+// GUI
+// CHANGE TO DIFFERENT FRUITS
+
 
 public class main extends PApplet {
 

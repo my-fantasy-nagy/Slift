@@ -55,30 +55,40 @@ public class Grid {
         //SET INDEX OF CELLS TO MATCH SLIDER POSITION
         indexCols = pa.floor(sliderCols.getPosition()* (numCols-1));
         indexRows = pa.floor(sliderRows.getPosition()* (numRows-1));
-//        System.out.println(indexRows);
+        System.out.println(indexCols);
 
 
+
+        //TODO: FIX UP/DOWN FROM BREAKING RIGHT/LEFT AND VICE A VERSA
+        //GET POSITION OF OPPOSITE INDEX OF OTHER INDEX AND MOVE SLIDER ACCORDINGLY
+        if(dir == ConstantsFile.InputDirection.RIGHT){
+            for(int i = 0; i <numRows; i++){
+                int cellIndex = indexCols +i * numCols ;
+                cells.get(cellIndex).setDirection(Slider.SliderDirections.FORWARD);
+            }
+        }
+
+        if(dir == ConstantsFile.InputDirection.LEFT){
+            for(int i = 0; i < numRows; i++){
+                int cellIndex = indexCols +i * numCols ;
+                cells.get(cellIndex).setDirection(Slider.SliderDirections.BACKWARD);
+            }
+        }
 
         if(dir == ConstantsFile.InputDirection.DOWN){
-            for(int i = 0; i <numCols; i++){
+            for(int i = 0; i < numCols; i++){
                 int cellIndex = indexRows * numCols + i;
                 cells.get(cellIndex).setDirection(Slider.SliderDirections.FORWARD);
             }
         }
 
         if(dir == ConstantsFile.InputDirection.UP){
-            for(int i = 0; i <numCols; i++){
+            for(int i = 0; i < numCols; i++){
                 int cellIndex = indexRows * numCols + i;
                 cells.get(cellIndex).setDirection(Slider.SliderDirections.BACKWARD);
             }
         }
 
-//        if(sliderCols.getDirection() == Slider.SliderDirections.LEFT){
-//            for(int i = 0; i <numCols; i++){
-//                int cellIndex = indexRows * numCols + i;
-//                cells.get(cellIndex).setDirection(Slider.SliderDirections.BACKWARD);
-//            }
-//        }
 
 
         //update cells
@@ -136,7 +146,7 @@ public class Grid {
 
     private void sliderLeft(){
         // LEFT MAPPED TO BACKWARD
-        sliderRows.setDirection(Slider.SliderDirections.BACKWARD);
+        sliderCols.setDirection(Slider.SliderDirections.BACKWARD);
     }
 //
     public void fadeOn() {
