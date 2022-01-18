@@ -5,65 +5,68 @@ import processing.data.IntList;
 
 import java.util.ArrayList;
 
+import static Constants.ConstantsFile.COLUMN_RATE;
 import static Constants.ConstantsFile.ROW_RATE;
 
 public class Grid {
     PApplet pa;
-    ArrayList<Column> cols = new ArrayList<>();
+    ArrayList<Cell> cells = new ArrayList<>();
     IntList triggerOrder;
-    Slider slider;
-    int numColumns;
-    int index;
+    Slider sliderRows;
+    Slider sliderCols;
+    int numCols;
+    int numRows;
+    int indexRows;
+    int indexCols;
 
     ConstantsFile.InputDirection dir;
 
-    public Grid(PApplet pa, PVector pos, int[] colors,  float cellSize, int numCells, int numColumns){
+    public Grid(PApplet pa, PVector pos, int[] colors,  float cellSize, int numRows, int numCols){
         this.pa = pa;
-        this.numColumns = numColumns;
+        this.numCols = numCols;
+        this.numRows = numRows;
 
-        index = 0;
+        indexCols = 0;
+        indexRows = 0;
 
-        //create intList to determine display order
-        triggerOrder = new IntList();
-
-        //Slider for transversing the column
-        slider = new Slider(ROW_RATE);
-
-        for(int i = 0; i < numColumns; i++){
+        //INITIALIZE 2D ARRAY OF CELLS AS 1D ARRAY
+        for(int y = 0; y < numCols; y ++){
+            for(int x = 0; x < numRows; x ++){
+                int cellIndex = y * numRows + x;
+                System.out.println("Index: " + cellIndex);
 
             //calculate position
-            float posX = i * cellSize + pos.y;;
-            float posY = pos.x;
+                float posX = x * cellSize;
+                float posY = y * cellSize;
 
-            // create new column
-            cols.add(new Column(pa, new PVector(posX, posY), colors, cellSize, numCells));
-
-            //populate trigger order in increasing numerical order
-            triggerOrder.append(i);
+            //create new cell and add to arrayList
+                cells.add(new Cell(pa, new PVector(posX, posY),  cellSize,  0,  255));
+            }
         }
+
+        //CREATE NEW SLIDERS FOR TRANSVERSING ROWS AND COLUMNS
+        sliderCols = new Slider(COLUMN_RATE);
+        sliderRows = new Slider(ROW_RATE);
+
     }
 
     public void update(){
-        //set the index and constrain to number of cells.
-        index = (int) pa.map(slider.getPosition(), 0.0F, 1.0F, 0.0F, numColumns);
-        index = pa.constrain(index, 0, numColumns - 1);
+        //SET INDEX OF CELLS TO MATCH SLIDER POSITION
+        indexCols = pa.floor(sliderCols.getPosition()* (numCols-1));
+        indexRows = pa.floor(sliderRows.getPosition()* (numRows-1));
 
-        if (dir == ConstantsFile.InputDirection.LEFT) {
-            cols.get(index).fadeOff();
-        }
-        else if (dir == ConstantsFile.InputDirection.RIGHT) {
-            cols.get(index).fadeOn();
-        }
+        //TODO: CHECK DIRECTION AND UPDATE CELLS ACCORDINGLY
 
-        for(Column col: cols){
-            col.update();
+
+        //update cells
+        for(Cell cell : cells){
+            cell.update();
         }
 
-        slider.update();
+        //update sliders
+        sliderRows.update();
+        sliderCols.update();
 
-        if (slider.getState() == Slider.SliderState.ON || slider.getState() == Slider.SliderState.OFF) {
-            dir = ConstantsFile.InputDirection.NONE;
-        }
 
 
 
@@ -73,19 +76,19 @@ public class Grid {
         this.dir = dir;
         switch(dir){
             case UP:
-                sequentialUp();
+                sliderUp();
                 break;
 
             case DOWN:
-                sequentialDown();
+                sliderDown();
                 break;
 
             case RIGHT:
-                sequentialRight();
+                sliderRight();
                 break;
-
+//
             case LEFT:
-                sequentialLeft();
+                sliderLeft();
                 break;
 
             case NONE:
@@ -93,62 +96,60 @@ public class Grid {
         }
     }
 
-    private void sequentialUp() {
-        for (Column col : cols) {
-            col.sequentialUp();
-        }
+    private void sliderUp() {
+        // UP MAPPED TO BACKWARD
+        sliderRows.setDirection(Slider.SliderDirections.BACKWARD);
+    }
+//
+    private void sliderDown(){
+        // DOWN MAPPED TO FORWARD
+        sliderRows.setDirection(Slider.SliderDirections.FORWARD);
+    }
+//
+    private void sliderRight(){
+        // RIGHT MAPPED TO FORWARD
+        sliderCols.setDirection(Slider.SliderDirections.FORWARD);
     }
 
-    private void sequentialDown(){
-        for (Column col : cols) {
-            col.sequentialDown();
-        }
+    private void sliderLeft(){
+        // LEFT MAPPED TO BACKWARD
+        sliderRows.setDirection(Slider.SliderDirections.BACKWARD);
     }
-
-    private void sequentialRight(){
-        slider.setDirection(Slider.SliderDirections.FORWARD);
-
-    }
-
-    private void sequentialLeft(){
-        slider.setDirection(Slider.SliderDirections.BACKWARD);
-
-    }
-
-    public void fadeOn() {
-        for(Column col: cols){
-            col.fadeOn();
-        }
-    }
-
-    public void fadeOff() {
-        for(Column col: cols){
-            col.fadeOff();
-        }
-    }
-
-    public void shuffleColumns(){
-
-        if(dir == ConstantsFile.InputDirection.NONE){
-            System.out.println("SHUFFLED");
-            for(Column column: cols){
-                column.shuffleTriggerOrder();
-            }
-        }
-        else{
-            System.out.println("CANNOT SHUFFLE");
-        }
-    }
-
-    public void alignColumns(){
-        if(dir == ConstantsFile.InputDirection.NONE) {
-            System.out.println("ALIGNED");
-            for (Column column : cols) {
-                column.alignTriggerOrder();
-            }
-        }
-        else{
-            System.out.println("CANNOT ALIGN");
-        }
-    }
+//
+//    public void fadeOn() {
+//        for(Column col: cols){
+//            col.fadeOn();
+//        }
+//    }
+//
+//    public void fadeOff() {
+//        for(Column col: cols){
+//            col.fadeOff();
+//        }
+//    }
+//
+//    public void shuffleColumns(){
+//
+//        if(dir == ConstantsFile.InputDirection.NONE){
+//            System.out.println("SHUFFLED");
+//            for(Column column: cols){
+//                column.shuffleTriggerOrder();
+//            }
+//        }
+//        else{
+//            System.out.println("CANNOT SHUFFLE");
+//        }
+//    }
+//
+//    public void alignColumns(){
+//        if(dir == ConstantsFile.InputDirection.NONE) {
+//            System.out.println("ALIGNED");
+//            for (Column column : cols) {
+//                column.alignTriggerOrder();
+//            }
+//        }
+//        else{
+//            System.out.println("CANNOT ALIGN");
+//        }
+//    }
 }
