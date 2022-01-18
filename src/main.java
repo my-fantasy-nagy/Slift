@@ -31,8 +31,8 @@ public class main extends PApplet {
     public void setup(){
         frameRate(FRAME_RATE);
 //        frameRate(2);
-        int numCols = (int)(WIDE/CELL_SIZE);
-        int numRows = (int)(HIGH/CELL_SIZE);
+        int numCols = (int)(HIGH/CELL_SIZE);
+        int numRows = (int)(WIDE/CELL_SIZE);
         dir = InputDirection.NONE;
         colors = new int[]{unhex(color0), unhex(color1)};
         grid = new Grid(this, new PVector(0.0F,0.0F), colors, CELL_SIZE, numCols, numRows);
@@ -53,15 +53,15 @@ public class main extends PApplet {
     }
 
     public void keyPressed() {
-//        switch(key){
-//
-//            case 'a':
-//                grid.fadeOn();
-//                break;
-//
-//            case 's':
-//                grid.fadeOff();
-//                break;
+        switch(key){
+
+            case 'a':
+                grid.fadeOn();
+                break;
+
+            case 's':
+                grid.fadeOff();
+                break;
 //
 //            case 'q':
 //                grid.shuffleColumns();
@@ -70,7 +70,7 @@ public class main extends PApplet {
 //            case 'w':
 //                grid.alignColumns();
 //                break;
-//        }
+        }
 
         switch(keyCode){
             case UP:

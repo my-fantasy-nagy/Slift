@@ -30,10 +30,9 @@ public class Grid {
         indexRows = 0;
 
         //INITIALIZE 2D ARRAY OF CELLS AS 1D ARRAY
-        for(int y = 0; y < numCols; y ++){
-            for(int x = 0; x < numRows; x ++){
+        for(int y = 0; y < numRows; y ++){
+            for(int x = 0; x < numCols; x ++){
                 int cellIndex = y * numRows + x;
-                System.out.println("Index: " + cellIndex);
 
             //calculate position
                 float posX = x * cellSize;
@@ -50,12 +49,36 @@ public class Grid {
 
     }
 
+//    private void
+
     public void update(){
         //SET INDEX OF CELLS TO MATCH SLIDER POSITION
         indexCols = pa.floor(sliderCols.getPosition()* (numCols-1));
         indexRows = pa.floor(sliderRows.getPosition()* (numRows-1));
+//        System.out.println(indexRows);
 
-        //TODO: CHECK DIRECTION AND UPDATE CELLS ACCORDINGLY
+
+
+        if(dir == ConstantsFile.InputDirection.DOWN){
+            for(int i = 0; i <numCols; i++){
+                int cellIndex = indexRows * numCols + i;
+                cells.get(cellIndex).setDirection(Slider.SliderDirections.FORWARD);
+            }
+        }
+
+        if(dir == ConstantsFile.InputDirection.UP){
+            for(int i = 0; i <numCols; i++){
+                int cellIndex = indexRows * numCols + i;
+                cells.get(cellIndex).setDirection(Slider.SliderDirections.BACKWARD);
+            }
+        }
+
+//        if(sliderCols.getDirection() == Slider.SliderDirections.LEFT){
+//            for(int i = 0; i <numCols; i++){
+//                int cellIndex = indexRows * numCols + i;
+//                cells.get(cellIndex).setDirection(Slider.SliderDirections.BACKWARD);
+//            }
+//        }
 
 
         //update cells
@@ -116,17 +139,17 @@ public class Grid {
         sliderRows.setDirection(Slider.SliderDirections.BACKWARD);
     }
 //
-//    public void fadeOn() {
-//        for(Column col: cols){
-//            col.fadeOn();
-//        }
-//    }
+    public void fadeOn() {
+        for(Cell cell : cells){
+            cell.forward();
+        }
+    }
 //
-//    public void fadeOff() {
-//        for(Column col: cols){
-//            col.fadeOff();
-//        }
-//    }
+    public void fadeOff() {
+        for(Cell cell: cells){
+            cell.backward();
+        }
+    }
 //
 //    public void shuffleColumns(){
 //
