@@ -27,10 +27,19 @@ public class Cell {
         finalFill = pa.lerpColor(colorOn, colorOff, slider.getPosition());
         pa.fill(finalFill);
         pa.stroke(255);
+        pa.noStroke();
         pa.rect(pos.x, pos.y, size, size);
         slider.update();
     }
 
+
+    public void setColorOn(int newCol){
+        colorOn = newCol;
+    }
+
+    public void setColorOff(int newCol){
+        colorOff = newCol;
+    }
 
     public void reverse(){
         slider.reverseDirection();

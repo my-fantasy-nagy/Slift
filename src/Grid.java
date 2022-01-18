@@ -19,14 +19,18 @@ public class Grid {
     int numRows;
     int indexRows;
     int indexCols;
+    int[] colorsOn;
+    int[] colorOff;
 
     ConstantsFile.InputDirection dirVert;
     ConstantsFile.InputDirection dirHoriz;
 
-    public Grid(PApplet pa, PVector pos, int[] colors,  float cellSize, int numRows, int numCols){
+    public Grid(PApplet pa, PVector pos, int[] colorsOn, int[] colorsOff,  float cellSize, int numRows, int numCols){
         this.pa = pa;
         this.numCols = numCols;
         this.numRows = numRows;
+        this.colorsOn = colorsOn;
+        this.colorOff = colorsOff;
 
         indexCols = 0;
         indexRows = 0;
@@ -41,7 +45,7 @@ public class Grid {
                 float posY = y * cellSize;
 
             //create new cell and add to arrayList
-                cells.add(new Cell(pa, new PVector(posX, posY),  cellSize,  0,  255));
+                cells.add(new Cell(pa, new PVector(posX, posY),  cellSize,  colorsOn[cellIndex],colorsOff[cellIndex]));
             }
         }
 
@@ -54,18 +58,17 @@ public class Grid {
 
     public void update(){
 
-        //GET DIRECTIONS OF SLIDERS AND MAP CELLS ON/OFF
-        mapCellsToSliders();
-
-        //update cells
-        for(Cell cell : cells){
-            cell.update();
-        }
-
-        //update sliders
+        //UPDATE SLIDERS
         sliderRows.update();
         sliderCols.update();
 
+        //GET DIRECTIONS OF SLIDERS AND MAP CELLS ON/OFF
+        mapCellsToSliders();
+
+        //UPDATE CELLS
+        for(Cell cell : cells){
+            cell.update();
+        }
     }
 
     private void mapCellsToSliders(){
@@ -147,6 +150,15 @@ public class Grid {
     public void fadeOff() {
         for(Cell cell: cells){
             cell.backward();
+        }
+    }
+
+    public void setColorA(int[] colors){
+        for(int y = 0; y < numRows; y ++) {
+            for (int x = 0; x < numCols; x++) {
+                int cellIndex = y * numRows + x;
+                cells.get(cellIndex).setColorOn(colors[cellIndex]);
+            }
         }
     }
 
