@@ -33,4 +33,15 @@ public class Colors {
     public static final String BROKEN_GUITAR_0 = "FF000000";
     public static final String BROKEN_GUITAR_1 = "FFA55C1B";
 
+    public static final String ELVIS_LATEST_CHECK_IN_0 = "FF6D17CB";
+    public static final String ELVIS_LATEST_CHECK_IN_1 = "FF2876F9";
+
+    public static final String CREATIVE_IDEA_0 = "FFCB218E";
+    public static final String CREATIVE_IDEA_1 = "FF6617CB";
+
+    public static final String ANONYMOUS_P_0 = "FF647DEE";
+    public static final String ANONYMOUS_P_1 = "FF7F53AC";
+
+//    public static final String _0 = "FF";
+//    public static final String _1 = "FF";
 }

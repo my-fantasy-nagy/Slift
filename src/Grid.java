@@ -38,7 +38,7 @@ public class Grid {
         //INITIALIZE 2D ARRAY OF CELLS AS 1D ARRAY
         for(int y = 0; y < numRows; y ++){
             for(int x = 0; x < numCols; x ++){
-                int cellIndex = y * numRows + x;
+                int cellIndex = x + y * numCols;
 
             //calculate position
                 float posX = x * cellSize;
@@ -156,8 +156,17 @@ public class Grid {
     public void setColorA(int[] colors){
         for(int y = 0; y < numRows; y ++) {
             for (int x = 0; x < numCols; x++) {
-                int cellIndex = y * numRows + x;
+                int cellIndex = x + y * numCols;
                 cells.get(cellIndex).setColorOn(colors[cellIndex]);
+            }
+        }
+    }
+
+    public void setColorB(int[] colors){
+        for(int y = 0; y < numRows; y ++) {
+            for (int x = 0; x < numCols; x++) {
+                int cellIndex = x + y * numCols;
+                cells.get(cellIndex).setColorOff(colors[cellIndex]);
             }
         }
     }

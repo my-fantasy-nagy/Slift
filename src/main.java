@@ -33,9 +33,7 @@ public class main extends PApplet {
     InputDirection dirVert;
     int[] colors;
     int[] mango;
-    int[] black;
-    String color0 = SHAANAS_PICK_0;
-    String color1 = SHAANAS_PICK_1;
+    int[] blueberry;
     int numRows;
     int numCols;
     float inc;
@@ -53,14 +51,11 @@ public class main extends PApplet {
         dirHoriz = InputDirection.NONE;
         dirVert = InputDirection.NONE;
 
-        mango = CamoFruit.camo(this, numRows, numCols, 0);
-        black = CamoFruit.blackGrid(this, numRows, numCols);
-//        for(int i =0; i < mango.length; i++){
-//            println(mango[i]);
-//        }
+        //set colors
+        mango = CamoFruit.mango(this, numRows, numCols, 0);
+        blueberry = CamoFruit.blueberry(this, numRows, numCols,0);
 
-        colors = new int[]{unhex(color0), unhex(color1)};
-        grid = new Grid(this, new PVector(0.0F,0.0F), mango, black, CELL_SIZE, numCols, numRows);
+        grid = new Grid(this, new PVector(0.0F,0.0F), mango, blueberry, CELL_SIZE, numCols, numRows);
 //        noLoop();
 
         inc = 0;
@@ -70,9 +65,11 @@ public class main extends PApplet {
 
         background(0);
         inc += incRate;
-        mango = camo(this, grid.numRows, grid.numCols,  inc);
+        mango = mango(this, numRows, numCols,  inc);
+        blueberry = blueberry(this, numRows, numCols, inc);
         grid.setDirection(dirHoriz, dirVert);
         grid.setColorA(mango);
+        grid.setColorB(blueberry);
         grid.update();
     }
 
