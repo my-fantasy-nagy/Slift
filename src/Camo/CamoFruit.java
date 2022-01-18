@@ -7,6 +7,57 @@ import static Constants.Colors.*;
 public class CamoFruit {
 
 
+    //TODO
+    public static int[] banana(PApplet pa, int numRows, int numCols, float time){
+        return null;
+    }
+
+    public static int[] watermelon(PApplet pa, int numRows, int numCols, float time, boolean[] seeds){
+        //TODO: MAKE THIESE CONSTNATS
+        float noiseScale = .1F;
+        float lim1 = 0.55F;
+        float lim2 = 0.66F;
+
+        //initialize array
+        int[] colors = new int[numCols * numRows];
+
+        //LOOP THROUGH CELLS
+        for(int y = 0; y < numRows; y ++) {
+            for (int x = 0; x < numCols; x++) {
+
+                //SET NOISE DETAIL
+                pa.noiseDetail(8, .65F);
+
+                //GET NOISE VALUE
+                float noiseVal = pa.noise(x * noiseScale, y * noiseScale, time);
+
+
+                //COLOR INTERPOLATION
+                int col1 = pa.unhex(TINSEL_0);
+                int col2 = pa.lerpColor(pa.unhex(TINSEL_0), pa.unhex(TINSEL_1), 0.5F);
+                int col3 = pa.unhex(TINSEL_1);
+                int col4 = 0;
+
+                //CELL INDEX
+                int cellIndex = x + y * numCols;
+
+                //FILTER COLOR BASED ON NOISE VALUES
+                colors[cellIndex] = col1;
+                if ( noiseVal > lim1 && noiseVal < lim2) {
+                    colors[cellIndex] = col2;
+                }
+                else if(noiseVal >= lim2){
+                    colors[cellIndex] = col3;
+                }
+                if(seeds[cellIndex] == true){
+                    colors[cellIndex] = col4;
+                }
+
+
+            }
+        }
+        return colors;
+    }
 
     public static int[] mango(PApplet pa, int numRows, int numCols, float time) {
         //TODO: MAKE THESE CONSTANTS
@@ -50,6 +101,10 @@ public class CamoFruit {
         }
         return colors;
     }
+
+
+
+
 
     public static int[] blueberry(PApplet pa, int numRows, int numCols, float time) {
         float noiseScale = .1F;
@@ -108,5 +163,19 @@ public class CamoFruit {
     private static float getDistFromCenter(PApplet pa, int x, int y, int spread){
         float rad = (float)Math.sqrt(x*x + y*y);
         return pa.map(rad, 0, spread, 0, 1);
+    }
+
+    public static boolean[] generateSeeds(PApplet pa, int numRows, int numCols){
+        boolean seeds[] = new boolean[numRows * numCols];
+        for(int i = 0; i < seeds.length; i ++){
+            float roll = pa.random(1.0F);
+            if(roll < 0.02){
+                seeds[i] = true;
+            }
+            else{
+                seeds[i] = false;
+            }
+        }
+        return seeds;
     }
 }

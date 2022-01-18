@@ -10,7 +10,9 @@ import static Camo.CamoFruit.*;
 
 
 //TODO:
-// ADD IN CAMO FRUIT COLOR ARRAYS -- MANGO DONE
+// ADD IN WATERMELON
+// ADD IN BANANA
+// ADD SWITCH BETWEEN COLORS
 // SHUFFLE AND UNSHUFFLE COLUMNS
 // FIX SKIPPED COLUMNS/ROWS WHEN RATE IS TOO FAST
 // BUBBLE SORT
@@ -34,10 +36,13 @@ public class main extends PApplet {
     int[] colors;
     int[] mango;
     int[] blueberry;
+    int[] watermelon;
+    boolean[] seeds;
     int numRows;
     int numCols;
+
     float inc;
-    float incRate = 0.001F;
+    float incRate = 0.0005F;
 
     public void settings() {
         size(WIDE, HIGH);
@@ -52,10 +57,12 @@ public class main extends PApplet {
         dirVert = InputDirection.NONE;
 
         //set colors
+        seeds = CamoFruit.generateSeeds(this, numRows, numCols);
         mango = CamoFruit.mango(this, numRows, numCols, 0);
         blueberry = CamoFruit.blueberry(this, numRows, numCols,0);
+        watermelon = CamoFruit.watermelon(this, numRows, numCols, 0, seeds);
 
-        grid = new Grid(this, new PVector(0.0F,0.0F), mango, blueberry, CELL_SIZE, numCols, numRows);
+        grid = new Grid(this, new PVector(0.0F,0.0F), watermelon, blueberry, CELL_SIZE, numCols, numRows);
 //        noLoop();
 
         inc = 0;
@@ -67,8 +74,9 @@ public class main extends PApplet {
         inc += incRate;
         mango = mango(this, numRows, numCols,  inc);
         blueberry = blueberry(this, numRows, numCols, inc);
+        watermelon = watermelon(this, numRows, numCols, inc, seeds);
         grid.setDirection(dirHoriz, dirVert);
-        grid.setColorA(mango);
+        grid.setColorA(watermelon);
         grid.setColorB(blueberry);
         grid.update();
     }
