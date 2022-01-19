@@ -185,6 +185,17 @@ public class CamoFruit {
         return black;
     }
 
+    public static int[] whiteGrid(PApplet pa, int numRows, int numCols){
+        int[] black = new int[numCols * numRows];
+        for(int y = 0; y < numRows; y ++) {
+            for (int x = 0; x < numCols; x++) {
+                int cellIndex = y * numRows + x;
+                black[cellIndex] = 255;
+            }
+        }
+        return black;
+    }
+
     private static float getDistFromCenter(PApplet pa, int x, int y, int spread){
         float rad = (float)Math.sqrt(x*x + y*y);
         return pa.map(rad, 0, spread, 0, 1);

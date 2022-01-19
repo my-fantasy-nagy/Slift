@@ -15,7 +15,11 @@ public final class ConstantsFile {
     public static final float ROW_RATE = 0.01F;
     public static final float ZERO_F = 0.0F;
     public static final float ONE_F = 1.0F;
-
+    public static final int NUM_FRUITS = 4;
+    public static final int MANG0 = 0;
+    public static final int BLUEBERRY = 1;
+    public static final int WATERMELON = 2;
+    public static final int BANANA = 3;
 
     public enum InputDirection {
         UP,
@@ -24,6 +28,9 @@ public final class ConstantsFile {
         RIGHT,
         NONE
     }
+
+
+
 
 
 }

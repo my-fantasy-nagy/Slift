@@ -3,20 +3,23 @@ import static Constants.Colors.*;
 
 import Camo.CamoFruit;
 import Constants.Colors;
+import SortingAlgorithms.BubbleSort;
 import processing.core.PApplet;
 import processing.core.PVector;
+
+import java.util.Arrays;
+
 import static Camo.CamoFruit.*;
+import static SortingAlgorithms.BubbleSort.*;
 
 
 
 //TODO:
-// ADD IN WATERMELON
-// ADD IN BANANA
 // ADD SWITCH BETWEEN COLORS
 // SHUFFLE AND UNSHUFFLE COLUMNS
 // FIX SKIPPED COLUMNS/ROWS WHEN RATE IS TOO FAST
 // BUBBLE SORT
-// GUI
+// SIMPLE GUI
 // CHANGE TO DIFFERENT FRUITS
 
 
@@ -34,6 +37,7 @@ public class main extends PApplet {
     InputDirection dirHoriz;
     InputDirection dirVert;
     int[] colors;
+    int[][]fruits;
     int[] mango;
     int[] blueberry;
     int[] watermelon;
@@ -57,30 +61,34 @@ public class main extends PApplet {
         dirHoriz = InputDirection.NONE;
         dirVert = InputDirection.NONE;
 
-        //set colors
+        //SET COLORS
         seeds = CamoFruit.generateSeeds(this, numRows, numCols);
-        mango = CamoFruit.mango(this, numRows, numCols, inc);
-        blueberry = CamoFruit.blueberry(this, numRows, numCols,inc);
-        watermelon = CamoFruit.watermelon(this, numRows, numCols, inc, seeds);
-        banana = CamoFruit.banana(this, numRows, numCols, inc);
+        fruits = new int[NUM_FRUITS][numRows * numCols];
+        fruits[MANG0] = CamoFruit.mango(this, numRows, numCols, inc);
+        fruits[BLUEBERRY] = CamoFruit.blueberry(this, numRows, numCols,inc);
+        fruits[WATERMELON] = CamoFruit.watermelon(this, numRows, numCols, inc, seeds);
+        fruits[BANANA] = CamoFruit.banana(this, numRows, numCols, inc);
 
-        grid = new Grid(this, new PVector(0.0F,0.0F), banana, watermelon, CELL_SIZE, numCols, numRows);
+        //INITIALIZE CELL GRID
+        grid = new Grid(this, new PVector(ZERO_F,ZERO_F), fruits[0], fruits[1], CELL_SIZE, numCols, numRows);
 //        noLoop();
 
         inc = 0;
+
+
     }
 
     public void draw(){
 
-        background(0);
+        background(BLACK);
         inc += incRate;
-        mango = mango(this, numRows, numCols,  inc);
-        blueberry = blueberry(this, numRows, numCols, inc);
-        watermelon = watermelon(this, numRows, numCols, inc, seeds);
-        banana = banana(this, numRows, numCols, inc);
+        fruits[MANG0] = mango(this, numRows, numCols,  inc);
+        fruits[BLUEBERRY] = blueberry(this, numRows, numCols, inc);
+        fruits[WATERMELON] = watermelon(this, numRows, numCols, inc, seeds);
+        fruits[BANANA] = banana(this, numRows, numCols, inc);
         grid.setDirection(dirHoriz, dirVert);
-        grid.setColorA(blueberry);
-        grid.setColorB(watermelon);
+        grid.setColorA(fruits[1]);
+        grid.setColorB(fruits[2]);
         grid.update();
     }
 
