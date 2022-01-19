@@ -10,17 +10,6 @@ import static Camo.CamoFruit.*;
 import static SortingAlgorithms.BubbleSort.*;
 
 
-
-//TODO:
-// ADD SWITCH BETWEEN COLORS
-// SHUFFLE AND UNSHUFFLE COLUMNS
-// FIX SKIPPED COLUMNS/ROWS WHEN RATE IS TOO FAST
-// BUBBLE SORT
-// SIMPLE GUI
-// CHANGE TO DIFFERENT FRUITS
-
-
-
 public class main extends PApplet {
 
 
@@ -47,7 +36,6 @@ public class main extends PApplet {
 
     public void setup(){
         frameRate(FRAME_RATE);
-//        frameRate(2);
         numCols = (int)(HIGH/CELL_SIZE);
         numRows = (int)(WIDE/CELL_SIZE);
         dirHoriz = InputDirection.NONE;
@@ -66,7 +54,6 @@ public class main extends PApplet {
 
         //INITIALIZE CELL GRID
         grid = new Grid(this, new PVector(ZERO_F,ZERO_F), fruits[inputColorA], fruits[inputColorB], CELL_SIZE, numCols, numRows);
-//        noLoop();
 
         inc = 0;
 
@@ -86,10 +73,6 @@ public class main extends PApplet {
         grid.setColorA(fruits[inputColorA]);
         grid.setColorB(fruits[inputColorB]);
     }
-
-//    public void mousePressed() {
-////        col.reverseSequential();
-//    }
 
     public void keyPressed() {
         switch(key){

@@ -32,7 +32,6 @@ public class Cell {
         slider.update();
     }
 
-
     public void setColorOn(int newCol){
         colorOn = newCol;
     }
@@ -41,54 +40,23 @@ public class Cell {
         colorOff = newCol;
     }
 
-    public void reverse(){
-        slider.reverseDirection();
-    }
-
     public void forward(){
         slider.setDirection(Slider.SliderDirections.FORWARD);
+    }
+
+    public void backward(){
+        slider.setDirection(Slider.SliderDirections.BACKWARD);
     }
 
     public void setDirection(Slider.SliderDirections dir) {
         slider.setDirection(dir);
     }
 
-    public void setState(Slider.SliderState state){
-        slider.setState(state);
-    }
-
-    public void setCellPos(float pos){
-        slider.setPos(pos);
-    }
-
-    public void switchColors(){
-        int tempColor = colorOn;
-        colorOn = colorOff;
-        colorOff = tempColor;
-    }
-
     public Slider.SliderState getState(){
         return slider.getState();
     }
-    public void backward(){
-        slider.setDirection(Slider.SliderDirections.BACKWARD);
-    }
 
-    public void on(){
-        slider.setState(Slider.SliderState.ON);
-    }
 
-    public void off(){
-        slider.setState(Slider.SliderState.OFF);
-    }
-
-    public void pause(){
-        slider.pause();
-    }
-
-    public void resume(){
-        slider.resume();
-    }
 
 
 

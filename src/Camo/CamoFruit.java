@@ -174,7 +174,7 @@ public class CamoFruit {
         return colors;
     }
 
-    public static int[] blackGrid(PApplet pa, int numRows, int numCols){
+    public static int[] allBlackGrid(PApplet pa, int numRows, int numCols){
         int[] black = new int[numCols * numRows];
         for(int y = 0; y < numRows; y ++) {
             for (int x = 0; x < numCols; x++) {
@@ -185,7 +185,7 @@ public class CamoFruit {
         return black;
     }
 
-    public static int[] whiteGrid(PApplet pa, int numRows, int numCols){
+    public static int[] allWhiteGrid(PApplet pa, int numRows, int numCols){
         int[] black = new int[numCols * numRows];
         for(int y = 0; y < numRows; y ++) {
             for (int x = 0; x < numCols; x++) {

@@ -12,7 +12,6 @@ import static Constants.ConstantsFile.ROW_RATE;
 public class Grid {
     PApplet pa;
     ArrayList<Cell> cells = new ArrayList<>();
-    IntList triggerOrder;
     Slider sliderRows;
     Slider sliderCols;
     int numCols;
@@ -71,10 +70,8 @@ public class Grid {
         sliderCols.update();
     }
 
+    // GET POSITION FROM GRID SLIDER AND UPDATE INDIVIDUAL CELL SLIDERS
     private void mapCellsToSliders(){
-
-
-
         //SET INDEX OF CELLS TO MATCH SLIDER POSITION
         indexCols = pa.floor(sliderCols.getPosition()* (numCols-1));
         indexRows = pa.floor(sliderRows.getPosition()* (numRows-1));
@@ -117,6 +114,8 @@ public class Grid {
 
     }
 
+
+    // SET DIRECTION OF SLIDERS/WIPE TRANSITION
     public void setDirection(ConstantsFile.InputDirection dirHoriz, ConstantsFile.InputDirection dirVert ){
 
         this.dirHoriz = dirHoriz;
@@ -151,22 +150,23 @@ public class Grid {
         else if(dirVert == ConstantsFile.InputDirection.DOWN){
             sliderRows.setDirection(Slider.SliderDirections.FORWARD);
         }
-
-
     }
 
+    // FADE ALL CELLS ON
     public void fadeOn() {
         for(Cell cell : cells){
             cell.forward();
         }
     }
 
+    // FADE ALL CELLS OFF
     public void fadeOff() {
         for(Cell cell: cells){
             cell.backward();
         }
     }
 
+    // UPDATE COLOR ARRAY
     public void setColorA(int[] colors){
         for(int y = 0; y < numRows; y ++) {
             for (int x = 0; x < numCols; x++) {
@@ -176,6 +176,8 @@ public class Grid {
         }
     }
 
+
+    // UPDATE COLOR ARRAY
     public void setColorB(int[] colors){
         for(int y = 0; y < numRows; y ++) {
             for (int x = 0; x < numCols; x++) {
@@ -184,14 +186,4 @@ public class Grid {
             }
         }
     }
-
-    //TODO: SHUFFLE GRID
-//    public void shuffleColumns(){
-
-//    }
-
-    //TODO: UNSHUFFLE THE GRID
-//    public void alignColumns(){
-
-//    }
 }
