@@ -122,16 +122,24 @@ public class Grid {
         this.dirHoriz = dirHoriz;
         this.dirVert = dirVert;
 
+        if(sliderRows.getState() == Slider.SliderState.OFF || sliderRows.getState() == Slider.SliderState.ON){
+            this.dirVert = ConstantsFile.InputDirection.NONE;
+        }
+
+        if(sliderCols.getState() == Slider.SliderState.OFF || sliderCols.getState() == Slider.SliderState.ON){
+            this.dirHoriz = ConstantsFile.InputDirection.NONE;
+        }
+
         // LEFT MAPPED TO BACKWARD
-            if (dirHoriz == ConstantsFile.InputDirection.LEFT) {
-                sliderCols.setDirection(Slider.SliderDirections.BACKWARD);
-            }
+        if (dirHoriz == ConstantsFile.InputDirection.LEFT) {
+            sliderCols.setDirection(Slider.SliderDirections.BACKWARD);
+        }
 
 
         // RIGHT MAPPED TO FORWARD
-            if(dirHoriz == ConstantsFile.InputDirection.RIGHT){
-                sliderCols.setDirection(Slider.SliderDirections.FORWARD);
-            }
+        if(dirHoriz == ConstantsFile.InputDirection.RIGHT){
+            sliderCols.setDirection(Slider.SliderDirections.FORWARD);
+        }
 
 
         // UP MAPPED TO BACKWARD
@@ -143,6 +151,8 @@ public class Grid {
         else if(dirVert == ConstantsFile.InputDirection.DOWN){
             sliderRows.setDirection(Slider.SliderDirections.FORWARD);
         }
+
+
     }
 
     public void fadeOn() {

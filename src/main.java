@@ -2,12 +2,9 @@ import static Constants.ConstantsFile.*;
 import static Constants.Colors.*;
 
 import Camo.CamoFruit;
-import Constants.Colors;
 import SortingAlgorithms.BubbleSort;
 import processing.core.PApplet;
 import processing.core.PVector;
-
-import java.util.Arrays;
 
 import static Camo.CamoFruit.*;
 import static SortingAlgorithms.BubbleSort.*;
@@ -84,15 +81,15 @@ public class main extends PApplet {
         fruits[BLUEBERRY] = blueberry(this, numRows, numCols, inc);
         fruits[WATERMELON] = watermelon(this, numRows, numCols, inc, seeds);
         fruits[BANANA] = banana(this, numRows, numCols, inc);
+        grid.update();
         grid.setDirection(dirHoriz, dirVert);
         grid.setColorA(fruits[inputColorA]);
         grid.setColorB(fruits[inputColorB]);
-        grid.update();
     }
 
-    public void mousePressed() {
-//        col.reverseSequential();
-    }
+//    public void mousePressed() {
+////        col.reverseSequential();
+//    }
 
     public void keyPressed() {
         switch(key){
