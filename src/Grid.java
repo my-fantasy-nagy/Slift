@@ -58,20 +58,23 @@ public class Grid {
 
     public void update(){
 
-        //UPDATE SLIDERS
-        sliderRows.update();
-        sliderCols.update();
-
-        //GET DIRECTIONS OF SLIDERS AND MAP CELLS ON/OFF
-        mapCellsToSliders();
-
         //UPDATE CELLS
         for(Cell cell : cells){
             cell.update();
         }
+
+        //GET DIRECTIONS OF SLIDERS AND MAP CELLS ON/OFF
+        mapCellsToSliders();
+
+        //UPDATE SLIDERS
+        sliderRows.update();
+        sliderCols.update();
     }
 
     private void mapCellsToSliders(){
+
+
+
         //SET INDEX OF CELLS TO MATCH SLIDER POSITION
         indexCols = pa.floor(sliderCols.getPosition()* (numCols-1));
         indexRows = pa.floor(sliderRows.getPosition()* (numRows-1));
@@ -79,16 +82,18 @@ public class Grid {
         //CASE FOR RIGHT
         if(dirHoriz == ConstantsFile.InputDirection.RIGHT){
             for(int i = 0; i <numRows; i++){
-                int cellIndex = indexCols +i * numRows ;
-                cells.get(cellIndex).setDirection(Slider.SliderDirections.FORWARD);
+                    int cellIndex = indexCols + i * numRows;
+                    cells.get(cellIndex).setDirection(Slider.SliderDirections.FORWARD);
+                    if(cellIndex == numRows * numCols - 1){
+                    }
+
             }
-            System.out.println();
         }
 
         //CASE FOR LEFT
         if(dirHoriz == ConstantsFile.InputDirection.LEFT){
-            for(int i = 0; i < numRows; i++){
-                int cellIndex = indexCols +i * numCols ;
+            for(int i = 0; i < numRows; i++) {
+                int cellIndex = indexCols + i * numCols;
                 cells.get(cellIndex).setDirection(Slider.SliderDirections.BACKWARD);
             }
         }
@@ -108,6 +113,8 @@ public class Grid {
                 cells.get(cellIndex).setDirection(Slider.SliderDirections.BACKWARD);
             }
         }
+
+
     }
 
     public void setDirection(ConstantsFile.InputDirection dirHoriz, ConstantsFile.InputDirection dirVert ){
@@ -116,14 +123,16 @@ public class Grid {
         this.dirVert = dirVert;
 
         // LEFT MAPPED TO BACKWARD
-        if(dirHoriz == ConstantsFile.InputDirection.LEFT){
-            sliderCols.setDirection(Slider.SliderDirections.BACKWARD);
-        }
+            if (dirHoriz == ConstantsFile.InputDirection.LEFT) {
+                sliderCols.setDirection(Slider.SliderDirections.BACKWARD);
+            }
+
 
         // RIGHT MAPPED TO FORWARD
-        else if(dirHoriz == ConstantsFile.InputDirection.RIGHT){
-            sliderCols.setDirection(Slider.SliderDirections.FORWARD);
-        }
+            if(dirHoriz == ConstantsFile.InputDirection.RIGHT){
+                sliderCols.setDirection(Slider.SliderDirections.FORWARD);
+            }
+
 
         // UP MAPPED TO BACKWARD
         if(dirVert == ConstantsFile.InputDirection.UP){
@@ -134,11 +143,6 @@ public class Grid {
         else if(dirVert == ConstantsFile.InputDirection.DOWN){
             sliderRows.setDirection(Slider.SliderDirections.FORWARD);
         }
-    }
-
-    private void sliderUp() {
-
-
     }
 
     public void fadeOn() {

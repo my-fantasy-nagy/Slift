@@ -31,17 +31,12 @@ public class main extends PApplet {
         PApplet.main("main");
     }
 
-//    Slider slider;
-//    Cell cell;
     Grid grid;
+    int inputColorA;
+    int inputColorB;
     InputDirection dirHoriz;
     InputDirection dirVert;
-    int[] colors;
     int[][]fruits;
-    int[] mango;
-    int[] blueberry;
-    int[] watermelon;
-    int[] banana;
     boolean[] seeds;
     int numRows;
     int numCols;
@@ -64,13 +59,16 @@ public class main extends PApplet {
         //SET COLORS
         seeds = CamoFruit.generateSeeds(this, numRows, numCols);
         fruits = new int[NUM_FRUITS][numRows * numCols];
+
         fruits[MANG0] = CamoFruit.mango(this, numRows, numCols, inc);
         fruits[BLUEBERRY] = CamoFruit.blueberry(this, numRows, numCols,inc);
         fruits[WATERMELON] = CamoFruit.watermelon(this, numRows, numCols, inc, seeds);
         fruits[BANANA] = CamoFruit.banana(this, numRows, numCols, inc);
+        inputColorA = 0;
+        inputColorB = 1;
 
         //INITIALIZE CELL GRID
-        grid = new Grid(this, new PVector(ZERO_F,ZERO_F), fruits[0], fruits[1], CELL_SIZE, numCols, numRows);
+        grid = new Grid(this, new PVector(ZERO_F,ZERO_F), fruits[inputColorA], fruits[inputColorB], CELL_SIZE, numCols, numRows);
 //        noLoop();
 
         inc = 0;
@@ -87,8 +85,8 @@ public class main extends PApplet {
         fruits[WATERMELON] = watermelon(this, numRows, numCols, inc, seeds);
         fruits[BANANA] = banana(this, numRows, numCols, inc);
         grid.setDirection(dirHoriz, dirVert);
-        grid.setColorA(fruits[1]);
-        grid.setColorB(fruits[2]);
+        grid.setColorA(fruits[inputColorA]);
+        grid.setColorB(fruits[inputColorB]);
         grid.update();
     }
 
@@ -106,14 +104,45 @@ public class main extends PApplet {
             case 's':
                 grid.fadeOff();
                 break;
-//
-//            case 'q':
-//                grid.shuffleColumns();
-//                break;
-//
-//            case 'w':
-//                grid.alignColumns();
-//                break;
+
+            //MANGO SIDE A
+            case '1':
+                inputColorA = 0;
+                break;
+            //BLUEBERRY SIDE A
+            case '2':
+                inputColorA = 1;
+                break;
+
+            // WATERMELON SIDE A
+            case '3':
+                inputColorA = 2;
+                break;
+
+            // BANANA SIDE A
+            case '4':
+                inputColorA = 3;
+                break;
+
+            // MANGO SIDE B
+            case '5':
+                inputColorB = 0;
+                break;
+
+            // BLUEBERRY SIDE B
+            case '6':
+                inputColorB = 1;
+                break;
+
+            // WATERMELON SIDE B
+            case '7':
+                inputColorB = 2;
+                break;
+
+            // BANAN SIDE B
+            case '8':
+                inputColorB = 3;
+                break;
         }
 
         switch(keyCode){
